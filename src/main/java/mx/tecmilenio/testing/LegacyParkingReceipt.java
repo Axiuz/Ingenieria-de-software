@@ -1,40 +1,28 @@
 package mx.tecmilenio.testing;
 
+import java.util.logging.Logger;
+
 public class LegacyParkingReceipt {
 
+    private static final Logger LOGGER = Logger.getLogger(LegacyParkingReceipt.class.getName());
+
+    private static final String LABEL = "PARKING";
+    private static final String ERROR_RESULT = "ERROR";
+
     public String buildReceipt(String plate, int minutes, int fee) {
-
-        String result = "";
-        String label = "PARKING";
-
-        if (plate == null) {
-            return "ERROR";
+        if (plate == null || plate.isEmpty()) {
+            return ERROR_RESULT;
         }
 
-        if (plate == "") {
-            return "ERROR";
+        if (minutes < 0 || fee < 0) {
+            return ERROR_RESULT;
         }
 
-        if (minutes < 0) {
-            return "ERROR";
-        }
+        LOGGER.fine(() -> "Creating receipt for " + plate);
 
-        if (fee < 0) {
-            return "ERROR";
-        }
+        boolean free = (fee == 0);
+        String amount = free ? "FREE" : "$" + fee;
 
-        System.out.println("Creating receipt for " + plate);
-
-        boolean free = fee == 0 ? true : false;
-
-        if (free == true) {
-            result = label + " - " + plate
-                    + " - " + minutes + " min - FREE";
-        } else {
-            result = label + " - " + plate
-                    + " - " + minutes + " min - $" + fee;
-        }
-
-        return result;
+        return LABEL + " - " + plate + " - " + minutes + " min - " + amount;
     }
 }
