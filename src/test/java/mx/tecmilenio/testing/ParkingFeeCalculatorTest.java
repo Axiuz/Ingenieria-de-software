@@ -55,4 +55,80 @@ class ParkingFeeCalculatorTest {
                 () -> calculator.calculateFee(-1, false)
         );
     }
+
+    // ------------------------------------------------------------------
+    // Pruebas nuevas (Actividad 4)
+    // ------------------------------------------------------------------
+
+    @Test
+    void zeroMinutesShouldBeFree() {
+        // Arrange
+        ParkingFeeCalculator calculator = new ParkingFeeCalculator();
+
+        // Act
+        int result = calculator.calculateFee(0, false);
+
+        // Assert
+        assertEquals(0, result);
+    }
+
+    @Test
+    void sixteenMinutesShouldChargeFlatRate() {
+        // Arrange: primer minuto fuera de la tolerancia gratuita
+        ParkingFeeCalculator calculator = new ParkingFeeCalculator();
+
+        // Act
+        int result = calculator.calculateFee(16, false);
+
+        // Assert
+        assertEquals(20, result);
+    }
+
+    @Test
+    void sixtyMinutesShouldStillChargeOnlyFlatRate() {
+        // Arrange: último minuto de la tarifa plana
+        ParkingFeeCalculator calculator = new ParkingFeeCalculator();
+
+        // Act
+        int result = calculator.calculateFee(60, false);
+
+        // Assert
+        assertEquals(20, result);
+    }
+
+    @Test
+    void partialAdditionalHourShouldBeChargedAsAWholeHour() {
+        // Arrange: 121 min = 1 hora adicional completa + 1 minuto iniciado
+        ParkingFeeCalculator calculator = new ParkingFeeCalculator();
+
+        // Act
+        int result = calculator.calculateFee(121, false);
+
+        // Assert
+        assertEquals(50, result);
+    }
+
+    @Test
+    void feeShouldBeCappedAtEightyOnTheFirstMinuteThatExceedsTheCap() {
+        // Arrange: 241 min darían 95 sin tope; el tope debe recortar a 80
+        ParkingFeeCalculator calculator = new ParkingFeeCalculator();
+
+        // Act
+        int result = calculator.calculateFee(241, false);
+
+        // Assert
+        assertEquals(80, result);
+    }
+
+    @Test
+    void lostTicketShouldTakePrecedenceOverNegativeMinutes() {
+        // Arrange: boleto perdido combinado con un dato inválido de minutos
+        ParkingFeeCalculator calculator = new ParkingFeeCalculator();
+
+        // Act
+        int result = calculator.calculateFee(-30, true);
+
+        // Assert
+        assertEquals(150, result);
+    }
 }
