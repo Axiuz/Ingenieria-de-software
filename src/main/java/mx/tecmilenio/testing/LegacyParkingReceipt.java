@@ -3,12 +3,12 @@ package mx.tecmilenio.testing;
 public class LegacyParkingReceipt {
 
     public String buildReceipt(String plate, int minutes, int fee) {
+
         String result = "";
-        int ticketCounter = 0;
+        String label = "PARKING";
 
         if (plate == null) {
-            result = "ERROR";
-            return result;
+            return "ERROR";
         }
 
         if (plate == "") {
@@ -23,15 +23,16 @@ public class LegacyParkingReceipt {
             return "ERROR";
         }
 
-        boolean free = false;
-        if (fee == 0) {
-            free = true;
-        }
+        System.out.println("Creating receipt for " + plate);
+
+        boolean free = fee == 0 ? true : false;
 
         if (free == true) {
-            result = "PARKING" + " - " + plate + " - " + minutes + " min - " + "FREE";
+            result = label + " - " + plate
+                    + " - " + minutes + " min - FREE";
         } else {
-            result = "PARKING" + " - " + plate + " - " + minutes + " min - " + "$" + fee;
+            result = label + " - " + plate
+                    + " - " + minutes + " min - $" + fee;
         }
 
         return result;
