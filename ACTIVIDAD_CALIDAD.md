@@ -4,7 +4,7 @@ Actividad 4 — Unit Testing, Code Review y SonarQube for IDE · Ingeniería de 
 
 ## Integrantes
 
-- Nombre: Saúl Benjamín Hernández Torres (entrega individual)
+- Nombre: Saúl Benjamín Hernández Torres y Yael Camberos Fernandez
 
 ## Repositorio
 
@@ -299,10 +299,3 @@ BUILD SUCCESS
 Desglose: 11 en `ParkingFeeCalculatorTest` (5 originales + 6 agregadas), 7 en
 `ParkingReservationPolicyTest` (reto TDD) y 4 en `UsernamePolicyTest` (ya venían en el
 proyecto).
-
-### Cómo reproducir
-
-```bash
-./mvnw clean test        # Linux / macOS
-.\mvnw.cmd clean test    # Windows
-```
