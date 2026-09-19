@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- B10 · Ficha completa y existencias. El borde de la caja avisa bajo el umbral. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/tp_pad_pantalla">
+
+        <include layout="@layout/view_barra_volver" />
+
+        <TextView
+            android:id="@+id/nombre"
+            style="@style/T.Titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:id="@+id/filas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:orientation="vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="18dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tarjetaCaja"
+            style="@style/Widget.TuPastilla.Tarjeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/T.Overline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="0dp"
+                    android:text="@string/b10_en_la_caja" />
+
+                <TextView
+                    android:id="@+id/existencias"
+                    style="@style/T.Display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    android:id="@+id/existenciasTexto"
+                    style="@style/T.Meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resurtir"
+                    style="@style/Widget.TuPastilla.Boton.Secundario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="?attr/tpSep"
+                    android:text="@string/b10_registrar_caja" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space android:layout_width="match_parent" android:layout_height="?attr/tpSep" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editar"
+            style="@style/Widget.TuPastilla.Boton.Primario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/b10_editar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/borrar"
+            style="@style/Widget.TuPastilla.Boton.Texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/b10_quitar" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

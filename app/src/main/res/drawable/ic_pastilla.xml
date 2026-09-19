@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Capsula inclinada. Sirve de logo en C0 y de ilustracion en los estados vacios. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp"
+    android:viewportWidth="48" android:viewportHeight="48"
+    android:tint="?attr/tpAccion">
+    <path android:pathData="M17,10L10,17a9.9,9.9 0 0,0 14,14l7,-7a9.9,9.9 0 0,0 -14,-14zM13.5,13.5l14,14"
+        android:strokeColor="#FFFFFFFF" android:strokeWidth="3"
+        android:strokeLineCap="round" android:strokeLineJoin="round" />
+</vector>

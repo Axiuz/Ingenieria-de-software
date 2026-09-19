@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A3 · El resultado se anuncia con announceForAccessibility, no solo se dibuja. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/raiz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/tp_fondo"
+    android:padding="@dimen/tp_pad_pantalla">
+
+    <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/circulo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:gravity="center"
+        android:textSize="64sp"
+        android:includeFontPadding="false"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/listo"
+        style="@style/T.Display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/tpSep"
+        android:gravity="center"
+        android:text="@string/a3_listo" />
+
+    <TextView
+        android:id="@+id/detalle"
+        style="@style/T.Cuerpo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:textColor="@color/tp_texto_secundario" />
+
+    <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/volver"
+        style="@style/Widget.TuPastilla.Boton.Primario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/a3_volver" />
+</LinearLayout>

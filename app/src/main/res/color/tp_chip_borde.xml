@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- El dia elegido se marca con el color de accion; el resto con el borde neutro. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="?attr/tpAccion" />
+    <item android:color="@color/tp_borde" />
+</selector>

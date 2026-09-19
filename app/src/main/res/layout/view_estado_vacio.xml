@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Estado vacio reutilizable: Hoy sin medicinas, lista vacia, historial sin tomas. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/estadoVacio"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_superficie"
+    android:padding="28dp"
+    android:visibility="gone">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_pastilla"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/vacioTitulo"
+        style="@style/T.Tarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/vacioDesc"
+        style="@style/T.Meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/vacioBoton"
+        style="@style/Widget.TuPastilla.Boton.Primario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/tpSep"
+        android:visibility="gone" />
+</LinearLayout>

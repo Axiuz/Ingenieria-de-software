@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Una opcion de rol: circulo de seleccion mas texto, area tactil completa. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/tpTouchMin"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_superficie"
+    android:padding="18dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <View
+        android:id="@+id/punto"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/bg_icono_estado" />
+
+    <TextView
+        android:id="@+id/texto"
+        style="@style/T.Cuerpo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="14dp" />
+</LinearLayout>

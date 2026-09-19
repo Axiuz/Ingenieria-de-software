@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TuPastilla</string>
+
+    <!-- C0 · Bienvenida -->
+    <string name="c0_titulo">TuPastilla</string>
+    <string name="c0_subtitulo">Te avisamos a la hora exacta y llevamos la cuenta de cada toma.</string>
+    <string name="c0_empezar">Empezar</string>
+
+    <!-- C10 · Seleccion de rol -->
+    <string name="c10_autonomo">Yo organizo mis propias medicinas</string>
+    <string name="c10_supervisado">Alguien me ayuda a organizar mis medicinas</string>
+    <string name="c10_cuidador">Ayudo a un familiar con sus medicinas</string>
+
+    <!-- C11 · Modo de vision -->
+    <string name="c11_titulo">¿En cuál se ven más distintas?</string>
+    <string name="c11_subtitulo">Elige la opción donde notes mejor la diferencia entre las tres tarjetas</string>
+    <string name="c11_opcion">Opción %1$d · %2$s</string>
+    <string name="c11_inseguro">No estoy seguro</string>
+    <string name="c11_m1">eje azul-verde</string>
+    <string name="c11_m2">no distingue rojo de verde</string>
+    <string name="c11_m3">no distingue azul</string>
+    <string name="c11_m4">forma, relleno y borde</string>
+    <string name="c11_m1_corto">Estándar</string>
+    <string name="c11_m2_corto">Protan / Deutan</string>
+    <string name="c11_m3_corto">Tritan</string>
+    <string name="c11_m4_corto">Sin color</string>
+    <string name="c11_m1_desc">Verde para confirmada, rojo para omitida. El icono y la etiqueta siempre acompañan al color.</string>
+    <string name="c11_m2_desc">Cian y ámbar en lugar de verde y rojo, para quien no distingue rojo de verde.</string>
+    <string name="c11_m3_desc">Acciones en blanco en lugar de azul, para quien no distingue el azul.</string>
+    <string name="c11_m4_desc">Sin color de estado: la diferencia es la forma del icono, el relleno y el grosor del borde.</string>
+
+    <!-- C11b · Tamano de texto -->
+    <string name="c11b_titulo">¿Cuál lees mejor?</string>
+    <string name="c11b_muestra_nombre">Losartán</string>
+    <string name="c11b_muestra_meta">1 pastilla · 08:00</string>
+    <string name="c11b_grande">TEXTO GRANDE</string>
+    <string name="c11b_compacto">CABE MÁS EN PANTALLA</string>
+
+    <!-- C13 · Permisos -->
+    <string name="c13_titulo">Para avisarte a tiempo</string>
+    <string name="c13_exacta_titulo">Sonar a la hora exacta</string>
+    <string name="c13_exacta_desc">El teléfono necesita permiso para avisarte justo a la hora de cada toma, no unos minutos después.</string>
+    <string name="c13_pantalla_titulo">Mostrar avisos en pantalla</string>
+    <string name="c13_pantalla_desc">Así ves el aviso aunque el teléfono esté bloqueado.</string>
+    <string name="c13_permitir">Permitir</string>
+    <string name="c13_permitido">Permitido</string>
+    <string name="c13_mas_tarde">Ahora no, más tarde</string>
+
+    <!-- C15 · Primera medicina -->
+    <string name="c15_titulo">Tu primera medicina</string>
+    <string name="c15_subtitulo">Puedes saltarte este paso y agregarla cuando quieras.</string>
+    <string name="c15_saltar">Saltar por ahora</string>
+
+    <!-- A1 · Hoy -->
+    <string name="a1_titulo">Hoy</string>
+    <string name="a1_ahora">AHORA · %1$s</string>
+    <string name="a1_a_las">A LAS %1$s</string>
+    <string name="a1_ya_la_tome">Ya la tomé</string>
+    <string name="a1_no_la_voy_a_tomar">No la voy a tomar</string>
+    <string name="a1_mas_tarde">Más tarde</string>
+    <string name="a1_ya_resueltas">Ya resueltas</string>
+    <string name="a1_deshacer">Deshacer</string>
+    <string name="a1_sin_meds_titulo">Todavía no hay medicinas</string>
+    <string name="a1_sin_meds_desc">Agrega la primera y te avisamos a su hora.</string>
+    <string name="a1_bajas_titulo">Quedan %1$d pastillas de %2$s</string>
+    <string name="a1_bajas_desc">Toca para registrar la caja nueva</string>
+
+    <!-- Tarjeta de toma · los tres estados -->
+    <string name="estado_confirmada_titulo">Tomada · %1$s</string>
+    <string name="estado_confirmada_meta">Hoy %1$s · confirmada</string>
+    <string name="estado_omitida_titulo">No tomada · %1$s</string>
+    <string name="estado_omitida_meta">%1$s · %2$s</string>
+    <string name="estado_omitida_sin_motivo">sin confirmar</string>
+    <string name="estado_pendiente_titulo">Pendiente · %1$s</string>
+    <string name="estado_pendiente_meta">%1$s · aún sin tomar</string>
+    <string name="glifo_confirmada">✓</string>
+    <string name="glifo_omitida">✕</string>
+    <string name="glifo_pendiente">○</string>
+
+    <!-- A4b · Mis medicinas -->
+    <string name="a4b_titulo">Mis medicinas</string>
+    <string name="a4b_vacia_titulo">La lista está vacía</string>
+    <string name="a4b_vacia_desc">Aquí verás cada medicina con su dosis y sus horarios.</string>
+        <string name="a4b_agregar_corto">Agregar medicina</string>
+    <string name="a4a_solo_lectura">Tu lista la organiza tu familiar. Puedes verla, pero no cambiarla.</string>
+    <string name="a4b_sin_horario">Sin horario</string>
+    <string name="a4b_diario">diario</string>
+
+    <!-- Personas a cargo (rol cuidador) -->
+    <string name="persona_yo">Yo</string>
+    <string name="personas_titulo">Personas a mi cargo</string>
+    <string name="personas_vacio_titulo">Todavía no cuidas a nadie</string>
+    <string name="personas_vacio_desc">Agrega a la primera persona y captura sus medicamentos.</string>
+    <string name="personas_agregar">Agregar persona</string>
+    <string name="persona_nueva">Nueva persona</string>
+    <string name="persona_editar">Editar persona</string>
+    <string name="persona_nombre">Nombre</string>
+    <string name="persona_nombre_ph">Rosa Méndez</string>
+    <string name="persona_nota">Nota</string>
+    <string name="persona_nota_ph">Habitación 4</string>
+    <string name="persona_sin_medicinas">Sin medicamentos todavía</string>
+    <string name="persona_quitar">Quitar persona</string>
+    <string name="persona_quitar_confirmar">¿Quitar a %1$s?</string>
+    <string name="persona_quitar_desc">Se borran sus medicamentos, sus horarios y sus tomas pendientes.</string>
+    <string name="persona_error_nombre">Escribe al menos el nombre.</string>
+    <string name="medicamentos_de">Medicamentos de %1$s</string>
+    <string name="hoy_cuidador_todas">Todas</string>
+    <plurals name="personas_a_cargo">
+        <item quantity="one">%1$d persona a tu cargo</item>
+        <item quantity="other">%1$d personas a tu cargo</item>
+    </plurals>
+    <plurals name="medicamentos_cuenta">
+        <item quantity="one">%1$d medicamento</item>
+        <item quantity="other">%1$d medicamentos</item>
+    </plurals>
+
+    <!-- B6 · Alta / edicion -->
+    <string name="b6_nueva">Nueva medicina</string>
+    <string name="b6_editar">Editar medicina</string>
+    <string name="b6_nombre">Nombre</string>
+    <string name="b6_nombre_ph">Losartán</string>
+    <string name="b6_dosis">Dosis</string>
+    <string name="b6_dosis_ph">50 mg · 1 pastilla</string>
+    <string name="b6_forma">Color o imagen de la pastilla</string>
+    <string name="b6_forma_ph">Blanca redonda</string>
+    <string name="b6_instrucciones">Instrucciones</string>
+    <string name="b6_instrucciones_ph">Con agua, después del desayuno</string>
+    <string name="b6_horarios">Horarios</string>
+    <string name="b6_sin_horario">Sin horario todavía</string>
+    <string name="b6_guardar">Guardar</string>
+    <string name="b6_error_nombre">Escribe al menos el nombre de la medicina.</string>
+
+    <!-- B7 · Horarios -->
+    <string name="b7_titulo">Horarios · %1$s</string>
+    <string name="b7_titulo_solo">Horarios</string>
+    <string name="b7_cuando">CUÁNDO DEBE TOMARSE</string>
+    <string name="b7_quitar">Quitar</string>
+    <string name="b7_agregar_hora">+ %1$s</string>
+    <string name="b7_desde">Desde</string>
+    <string name="b7_hasta">Hasta</string>
+    <string name="b7_sin_termino">Sin fecha de término</string>
+    <string name="b7_listo">Listo</string>
+    <string name="b7_otra_hora">Elegir otra hora</string>
+    <string name="b7_dias">QUÉ DÍAS</string>
+    <string name="b7_todos_los_dias">Todos los días</string>
+
+    <!-- B8 + B9 · Historial y cumplimiento -->
+    <string name="b8_titulo">Historial</string>
+    <string name="b8_ultimos">Últimos 7 días</string>
+    <string name="b8_vacio_titulo">Aún no hay tomas registradas</string>
+    <string name="b8_vacio_desc">En cuanto confirmes tu primera toma aparecerá aquí, con la hora exacta.</string>
+    <string name="b9_cumplimiento">CUMPLIMIENTO · %1$s</string>
+    <string name="b9_pct_desc">de las tomas confirmadas a tiempo</string>
+    <string name="b9_confirmadas">Tomas confirmadas</string>
+    <string name="b9_confirmadas_v">%1$d de %2$d</string>
+    <string name="b9_omitidas">Tomas omitidas</string>
+    <string name="b9_pendientes">Pendientes de hoy</string>
+    <string name="b8_ayer">Ayer</string>
+
+    <!-- B10 · Detalle de medicina -->
+    <string name="b10_volver">Mis medicinas</string>
+    <string name="b10_dosis">Dosis</string>
+    <string name="b10_forma">Color o imagen</string>
+    <string name="b10_instrucciones">Instrucciones</string>
+    <string name="b10_horarios">Horarios</string>
+    <string name="b10_sin_especificar">Sin especificar</string>
+    <string name="b10_sin_indicaciones">Sin indicaciones</string>
+    <string name="b10_en_la_caja">En la caja</string>
+    <string name="b10_pocas">Quedan pocas. Conviene resurtir esta semana.</string>
+    <string name="b10_alcanzan">Alcanzan para unas %1$d tomas más.</string>
+    <string name="b10_registrar_caja">Registrar caja nueva</string>
+    <string name="b10_editar">Editar</string>
+    <string name="b10_quitar">Quitar esta medicina</string>
+    <string name="b10_quitar_confirmar">¿Quitar %1$s?</string>
+    <string name="b10_quitar_desc">Se borran también sus horarios y sus tomas pendientes. El historial se conserva.</string>
+    <string name="b10_quitar_si">Quitar</string>
+    <string name="cancelar">Cancelar</string>
+
+    <!-- C16 · Ajustes -->
+    <string name="c16_titulo">Ajustes</string>
+    <string name="c16_sin_nombre">Mi perfil</string>
+    <string name="c16_como_se_ve">CÓMO SE VE</string>
+    <string name="c16_modo">Modo de visión</string>
+    <string name="c16_tamano">Tamaño del texto</string>
+    <string name="c16_grande">Grande</string>
+    <string name="c16_compacto">Compacto</string>
+    <string name="c16_avisos">AVISOS</string>
+    <string name="c16_exacta">Sonar a la hora exacta</string>
+    <string name="c16_exacta_desc">Usa alarma exacta del sistema</string>
+    <string name="c16_repetir">Repetir si no confirmo</string>
+    <string name="c16_repetir_desc">Vuelve a avisar a los 10 minutos</string>
+    <string name="c16_familiar">Avisar a mi familiar</string>
+    <string name="c16_familiar_desc">Solo si hay alguien vinculado</string>
+    <string name="c16_familia">FAMILIA</string>
+    <string name="c16_compartir">Compartir con un familiar</string>
+    <string name="c16_vinculado">Vinculado con un familiar</string>
+    <string name="c16_sin_vincular">Nadie vinculado todavía</string>
+    <string name="c16_ver_aviso">Ver cómo se ve el aviso del sistema</string>
+    <string name="c16_datos_prueba">Cargar datos de prueba</string>
+    <string name="c16_borrar_todo">Borrar todo y empezar de nuevo</string>
+    <string name="c16_borrar_confirmar">¿Borrar todo?</string>
+    <string name="c16_borrar_desc">Se borran el perfil, las medicinas y el historial. No se puede deshacer.</string>
+    <string name="c16_perfil">PERFIL</string>
+    <string name="c16_tipo_perfil">Tipo de perfil</string>
+    <string name="c16_rol_ayuda">El rol viene de tu cuenta. Solo un administrador puede cambiarlo.</string>
+    <string name="rol_autonomo_corto">Autónomo</string>
+    <string name="rol_supervisado_corto">Supervisado</string>
+    <string name="rol_cuidador_corto">Cuidador</string>
+    <string name="c16_rol_autonomo">Organizo mis propias medicinas</string>
+    <string name="c16_rol_supervisado">Alguien me ayuda con mis medicinas</string>
+    <string name="c16_rol_cuidador">Ayudo a un familiar</string>
+
+    <!-- C12a · Vinculacion -->
+    <string name="c12a_volver">Ajustes</string>
+    <string name="c12a_titulo">Código de vinculación</string>
+    <string name="c12a_subtitulo">Dictáselo a tu familiar. Vence en 15 minutos y sirve una sola vez.</string>
+    <string name="c12a_pie">Tu familiar podrá ver si tomaste tus medicinas. No podrá cambiar tu lista sin tu permiso.</string>
+    <string name="c12a_otro">Generar otro código</string>
+    <string name="c12a_vence">Vence en %1$02d:%2$02d</string>
+    <string name="c12a_vencido">El código ya venció</string>
+
+    <!-- A2 · Alerta de toma -->
+    <string name="a2_es_hora">ES HORA · %1$s</string>
+    <string name="a2_ahora_no">Ahora no</string>
+
+    <!-- A3 · Confirmacion -->
+    <string name="a3_listo">Listo</string>
+    <string name="a3_texto">Tomaste %1$s a las %2$s.</string>
+    <string name="a3_texto_familiar">Tomaste %1$s a las %2$s. Le avisamos a tu familiar.</string>
+    <string name="a3_volver">Volver al inicio</string>
+
+    <!-- Motivos de omision -->
+    <string name="motivo_titulo">¿Por qué no la tomaste?</string>
+    <string name="motivo_subtitulo">Es opcional. Ayuda a tu médico a entender el patrón.</string>
+    <string name="motivo_olvido">Se me olvidó</string>
+    <string name="motivo_mal">Me sentí mal con ella</string>
+    <string name="motivo_sin_medicina">No tenía la medicina</string>
+    <string name="motivo_reservado">Prefiero no decirlo</string>
+
+    <!-- Resurtir -->
+    <string name="resurtir_titulo">¿Cuántas pastillas trae la caja?</string>
+
+    <!-- Notificacion -->
+    <string name="notif_canal">Avisos de toma</string>
+    <string name="notif_canal_desc">Suena a la hora exacta de cada medicina.</string>
+    <string name="notif_titulo">Es hora de tu %1$s · %2$s</string>
+    <string name="notif_ver">Ver</string>
+    <string name="notif_despues">Después</string>
+
+    <!-- Pestanas -->
+    <string name="tab_hoy">Hoy</string>
+    <string name="tab_medicinas">Medicinas</string>
+    <string name="tab_personas">Personas</string>
+    <string name="tab_historial">Historial</string>
+    <string name="tab_ajustes">Ajustes</string>
+
+    <!-- Comunes -->
+    <string name="continuar">Continuar</string>
+    <string name="volver">Volver</string>
+    <string name="permiso_exacto_denegado">Sin permiso de alarma exacta el aviso puede llegar con unos minutos de retraso.</string>
+    <string name="a11y_toma">%1$s, %2$s, %3$s, %4$s</string>
+
+    <!-- Acceso: login, registro y errores de la API -->
+    <string name="login_titulo">Inicia sesión</string>
+    <string name="login_subtitulo">Entra con tu cuenta para ver tus medicinas en este teléfono.</string>
+    <string name="login_entrar">Entrar</string>
+    <string name="login_crear_cuenta">Crear una cuenta</string>
+    <string name="campo_correo">Correo electrónico</string>
+    <string name="campo_password">Contraseña</string>
+    <string name="campo_nombre">Tu nombre</string>
+    <string name="registro_titulo">Crea tu cuenta</string>
+    <string name="registro_password_ayuda">Mínimo 10 caracteres, con letras y números.</string>
+    <string name="registro_rol_titulo">Cómo vas a usar la app</string>
+    <string name="registro_crear">Crear cuenta</string>
+    <string name="error_correo_invalido">Escribe un correo válido.</string>
+    <string name="error_password_corta">La contraseña necesita al menos 10 caracteres.</string>
+    <string name="error_password_sin_letra">La contraseña necesita al menos una letra.</string>
+    <string name="error_password_sin_numero">La contraseña necesita al menos un número.</string>
+    <string name="error_password_larga">La contraseña es demasiado larga.</string>
+    <string name="error_nombre_vacio">Escribe tu nombre.</string>
+    <string name="error_credenciales">Correo o contraseña incorrectos.</string>
+    <string name="error_correo_ocupado">Ese correo ya tiene una cuenta.</string>
+    <string name="error_datos_invalidos">Revisa los datos e inténtalo de nuevo.</string>
+    <string name="error_demasiados_intentos">Demasiados intentos. Espera unos minutos.</string>
+    <string name="error_sesion_expirada">Tu sesión terminó. Vuelve a entrar.</string>
+    <string name="error_red">No hay conexión con el servidor.</string>
+    <string name="error_servidor">El servidor no respondió bien. Inténtalo más tarde.</string>
+    <string name="c16_cerrar_sesion">Cerrar sesión</string>
+    <string name="c16_cerrar_sesion_confirmar">¿Cerrar sesión en este teléfono?</string>
+</resources>

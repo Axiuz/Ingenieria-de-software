@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- B6 · Alta y edicion. El mismo layout con primeraVez=true es C15. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/tp_pad_pantalla">
+
+        <include layout="@layout/view_barra_volver" />
+
+        <TextView
+            android:id="@+id/titulo"
+            style="@style/T.Titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campoNombre"
+            style="@style/Widget.TuPastilla.Campo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:hint="@string/b6_nombre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/entradaNombre"
+                style="@style/Widget.TuPastilla.Campo.Texto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campoDosis"
+            style="@style/Widget.TuPastilla.Campo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="@string/b6_dosis">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/entradaDosis"
+                style="@style/Widget.TuPastilla.Campo.Texto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campoForma"
+            style="@style/Widget.TuPastilla.Campo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="@string/b6_forma">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/entradaForma"
+                style="@style/Widget.TuPastilla.Campo.Texto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campoInstrucciones"
+            style="@style/Widget.TuPastilla.Campo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="@string/b6_instrucciones">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/entradaInstrucciones"
+                style="@style/Widget.TuPastilla.Campo.Texto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Los horarios se editan en B7: aqui solo se resumen. -->
+        <LinearLayout
+            android:id="@+id/filaHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/tpTouchMin"
+            android:layout_marginTop="?attr/tpSep"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/T.Tarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/b6_horarios" />
+
+                <TextView
+                    android:id="@+id/resumenHorarios"
+                    style="@style/T.Meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_chevron"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+
+        <Space android:layout_width="match_parent" android:layout_height="?attr/tpSep" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/guardar"
+            style="@style/Widget.TuPastilla.Boton.Primario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/b6_guardar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saltar"
+            style="@style/Widget.TuPastilla.Boton.Texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/c15_saltar"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

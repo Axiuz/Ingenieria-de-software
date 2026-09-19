@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/tp_superficie" />
+    <corners android:radius="@dimen/tp_radio_tarjeta" />
+    <stroke android:width="@dimen/tp_borde_estado" android:color="@color/tp_borde" />
+</shape>

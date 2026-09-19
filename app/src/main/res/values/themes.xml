@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Tema base: modo 1 (estandar) y densidad accesible. Los modos 2-4 y la densidad
+      compacta son overlays que MainActivity aplica con theme.applyStyle() antes de
+      super.onCreate(), segun lo que haya guardado en Perfil.
+    -->
+    <style name="Theme.TuPastilla" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@color/tp_fondo</item>
+        <item name="android:statusBarColor">@color/tp_fondo</item>
+        <item name="android:navigationBarColor">@color/tp_fondo</item>
+        <item name="colorSurface">@color/tp_superficie</item>
+        <item name="colorOnSurface">@color/tp_texto_primario</item>
+        <item name="colorOutline">@color/tp_borde</item>
+        <item name="android:textColorPrimary">@color/tp_texto_primario</item>
+        <item name="android:textColorSecondary">@color/tp_texto_secundario</item>
+        <item name="android:textColorHint">@color/tp_texto_terciario</item>
+
+        <item name="tpConfirmada">@color/tp_m1_confirmada</item>
+        <item name="tpOmitida">@color/tp_m1_omitida</item>
+        <item name="tpPendiente">@color/tp_m1_pendiente</item>
+        <item name="tpAccion">@color/tp_m1_accion</item>
+
+        <!-- Material tine sus componentes con colorPrimary. Si no lo atamos al color
+             de accion del modo, switches, chips y pickers salen en el lila de serie. -->
+        <item name="colorPrimary">@color/tp_m1_accion</item>
+        <item name="colorOnPrimary">@color/tp_sobre_accion</item>
+        <item name="colorSecondary">@color/tp_m1_accion</item>
+        <item name="colorTertiary">@color/tp_m1_accion</item>
+
+        <item name="tpTextDisplay">@dimen/tp_text_display</item>
+        <item name="tpTextTitulo">@dimen/tp_text_titulo</item>
+        <item name="tpTextCuerpo">@dimen/tp_text_cuerpo</item>
+        <item name="tpTextEtiqueta">@dimen/tp_text_etiqueta</item>
+        <item name="tpTextTarjeta">@dimen/tp_text_tarjeta</item>
+        <item name="tpTextMeta">@dimen/tp_text_meta</item>
+        <item name="tpTouchMin">@dimen/tp_touch_min</item>
+        <item name="tpSep">@dimen/tp_sep</item>
+        <item name="tpIconoEstado">@dimen/tp_icono_estado</item>
+    </style>
+
+    <!-- La alerta de toma es una Activity aparte, con el mismo tema y sin barras. -->
+    <style name="Theme.TuPastilla.Alerta" parent="Theme.TuPastilla">
+        <item name="android:windowShowWallpaper">false</item>
+    </style>
+
+    <!-- modo 2 · protan / deutan -->
+    <style name="ThemeOverlay.TuPastilla.Modo2" parent="">
+        <item name="tpConfirmada">@color/tp_m2_confirmada</item>
+        <item name="tpOmitida">@color/tp_m2_omitida</item>
+        <item name="tpPendiente">@color/tp_m2_pendiente</item>
+        <item name="tpAccion">@color/tp_m2_accion</item>
+        <item name="colorPrimary">@color/tp_m2_accion</item>
+        <item name="colorSecondary">@color/tp_m2_accion</item>
+        <item name="colorTertiary">@color/tp_m2_accion</item>
+    </style>
+
+    <!-- modo 3 · tritan -->
+    <style name="ThemeOverlay.TuPastilla.Modo3" parent="">
+        <item name="tpConfirmada">@color/tp_m3_confirmada</item>
+        <item name="tpOmitida">@color/tp_m3_omitida</item>
+        <item name="tpPendiente">@color/tp_m3_pendiente</item>
+        <item name="tpAccion">@color/tp_m3_accion</item>
+        <item name="colorPrimary">@color/tp_m3_accion</item>
+        <item name="colorSecondary">@color/tp_m3_accion</item>
+        <item name="colorTertiary">@color/tp_m3_accion</item>
+    </style>
+
+    <!-- modo 4 · sin color -->
+    <style name="ThemeOverlay.TuPastilla.Modo4" parent="">
+        <item name="tpConfirmada">@color/tp_m4_confirmada</item>
+        <item name="tpOmitida">@color/tp_m4_omitida</item>
+        <item name="tpPendiente">@color/tp_m4_pendiente</item>
+        <item name="tpAccion">@color/tp_m4_accion</item>
+        <item name="colorPrimary">@color/tp_m4_accion</item>
+        <item name="colorSecondary">@color/tp_m4_accion</item>
+        <item name="colorTertiary">@color/tp_m4_accion</item>
+    </style>
+
+    <!-- densidad compacta -->
+    <style name="ThemeOverlay.TuPastilla.Compacta" parent="">
+        <item name="tpTextDisplay">@dimen/tp_c_text_display</item>
+        <item name="tpTextTitulo">@dimen/tp_c_text_titulo</item>
+        <item name="tpTextCuerpo">@dimen/tp_c_text_cuerpo</item>
+        <item name="tpTextEtiqueta">@dimen/tp_c_text_etiqueta</item>
+        <item name="tpTextTarjeta">@dimen/tp_c_text_tarjeta</item>
+        <item name="tpTextMeta">@dimen/tp_c_text_meta</item>
+        <item name="tpTouchMin">@dimen/tp_c_touch_min</item>
+        <item name="tpSep">@dimen/tp_c_sep</item>
+        <item name="tpIconoEstado">@dimen/tp_c_icono_estado</item>
+    </style>
+</resources>

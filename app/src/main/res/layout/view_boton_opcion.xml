@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Boton secundario creado en codigo. Va como layout y no con MaterialButton(context)
+  para que herede Widget.TuPastilla.Boton.Secundario: si no, Material lo pinta con su
+  colorPrimary de serie en vez de con el color de accion del modo.
+-->
+<com.google.android.material.button.MaterialButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/boton"
+    style="@style/Widget.TuPastilla.Boton.Secundario"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- C16 · Apariencia, avisos, familia y las herramientas de prueba. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/tp_pad_pantalla">
+
+        <TextView
+            style="@style/T.Titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_titulo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/iniciales"
+                style="@style/T.Tarjeta"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:gravity="center"
+                android:background="@drawable/bg_icono_estado"
+                android:importantForAccessibility="no" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nombrePerfil"
+                    style="@style/T.Tarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/rolPerfil"
+                    style="@style/T.Meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/T.Overline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_perfil" />
+
+        <!-- Cambiar de rol en caliente: la app es una demo y hay que poder verla
+             desde los tres lados sin volver a hacer el onboarding. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="18dp">
+
+            <TextView
+                style="@style/T.Cuerpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/c16_tipo_perfil" />
+
+            <LinearLayout
+                android:id="@+id/roles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/rolDescripcion"
+                style="@style/T.Meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                style="@style/T.Meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/tp_texto_terciario"
+                android:text="@string/c16_rol_ayuda" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/T.Overline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_como_se_ve" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="18dp">
+
+            <TextView
+                style="@style/T.Cuerpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/c16_modo" />
+
+            <LinearLayout
+                android:id="@+id/modos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/modoDescripcion"
+                style="@style/T.Meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="18dp">
+
+            <TextView
+                style="@style/T.Cuerpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/c16_tamano" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/densidadGrande"
+                    style="@style/Widget.TuPastilla.Boton.Secundario"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/c16_grande" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/densidadCompacta"
+                    style="@style/Widget.TuPastilla.Boton.Secundario"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/c16_compacto" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/T.Overline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_avisos" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_superficie"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <include android:id="@+id/avisoExacto" layout="@layout/view_fila_switch" />
+            <include android:id="@+id/avisoRepetir" layout="@layout/view_fila_switch" />
+            <include android:id="@+id/avisoFamiliar" layout="@layout/view_fila_switch" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/T.Overline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_familia" />
+
+        <LinearLayout
+            android:id="@+id/filaVinculacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/tpTouchMin"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_superficie"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/T.Tarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/c16_compartir" />
+
+                <TextView
+                    android:id="@+id/estadoVinculo"
+                    style="@style/T.Meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_chevron"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cerrarSesion"
+            style="@style/Widget.TuPastilla.Boton.Secundario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:text="@string/c16_cerrar_sesion" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verAviso"
+            style="@style/Widget.TuPastilla.Boton.Texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:text="@string/c16_ver_aviso" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/datosPrueba"
+            style="@style/Widget.TuPastilla.Boton.Texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_datos_prueba" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/borrarTodo"
+            style="@style/Widget.TuPastilla.Boton.Texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/c16_borrar_todo" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

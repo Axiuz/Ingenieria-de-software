@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hoja inferior de motivos y de resurtir: esquinas redondeadas solo arriba. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/tp_superficie" />
+    <corners android:topLeftRadius="@dimen/tp_radio_grande" android:topRightRadius="@dimen/tp_radio_grande" />
+</shape>

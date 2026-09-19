@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/tp_pad_pantalla">
+
+        <TextView
+            android:id="@+id/titulo"
+            style="@style/T.Titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/a1_titulo" />
+
+        <TextView
+            android:id="@+id/fecha"
+            style="@style/T.Meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <!--
+          Filtro por persona. Solo aparece en el rol cuidador.
+          En una sola linea con scroll: con seis residentes, envueltos ocupaban
+          media pantalla antes de llegar al turno.
+        -->
+        <HorizontalScrollView
+            android:id="@+id/filtroPersonasScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:visibility="gone">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filtroPersonas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="true"
+                app:selectionRequired="true" />
+        </HorizontalScrollView>
+
+        <!-- Aviso de existencias bajas. Toca para registrar la caja nueva. -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bannerBajas"
+            style="@style/Widget.TuPastilla.Tarjeta.Seleccionable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:visibility="gone"
+            app:strokeWidth="@dimen/tp_borde_estado">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bajasTitulo"
+                    style="@style/T.Tarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/T.Meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/a1_bajas_desc" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Proxima toma: es la unica tarjeta con borde de 3 dp y con acciones. -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tarjetaProxima"
+            style="@style/Widget.TuPastilla.Tarjeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/tp_transparente"
+            app:strokeWidth="@dimen/tp_borde_destacado">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/proximaEtiqueta"
+                    style="@style/T.Overline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp" />
+
+                <TextView
+                    android:id="@+id/proximaNombre"
+                    style="@style/T.Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/proximaDosis"
+                    style="@style/T.Meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/confirmarProxima"
+                    style="@style/Widget.TuPastilla.Boton.Primario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="?attr/tpSep"
+                    android:text="@string/a1_ya_la_tome" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/omitirProxima"
+                    style="@style/Widget.TuPastilla.Boton.Secundario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/a1_no_la_voy_a_tomar" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <include
+            layout="@layout/view_estado_vacio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/tpSep" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            android:clipToPadding="false" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

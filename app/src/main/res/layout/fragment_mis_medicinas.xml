@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/tp_pad_pantalla">
+
+    <!-- Solo visible cuando el cuidador entra desde una persona concreta. -->
+    <include
+        layout="@layout/view_barra_volver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/titulo"
+        style="@style/T.Titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/a4b_titulo" />
+
+    <!-- A4a · El supervisado ve la lista pero no la administra. -->
+    <TextView
+        android:id="@+id/avisoSoloLectura"
+        style="@style/T.Meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/tpSep"
+        android:background="@drawable/bg_superficie"
+        android:padding="16dp"
+        android:visibility="gone"
+        android:text="@string/a4a_solo_lectura" />
+
+    <include
+        layout="@layout/view_estado_vacio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/tpSep" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lista"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="?attr/tpSep"
+        android:clipToPadding="false" />
+
+    <!-- Anclado abajo: es la accion principal de la pantalla. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/agregar"
+        style="@style/Widget.TuPastilla.Boton.Primario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/a4b_agregar_corto" />
+</LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- C11b · Dos veces el mismo contenido a dos escalas: se elige el que se lee mejor. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/tp_pad_pantalla">
+
+    <TextView
+        style="@style/T.Titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/tpSep"
+        android:text="@string/c11b_titulo" />
+
+    <LinearLayout
+        android:id="@+id/opcionGrande"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/tpSep"
+        android:orientation="vertical"
+        android:background="@drawable/bg_superficie"
+        android:padding="18dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textSize="22sp" android:textStyle="bold"
+            android:textColor="@color/tp_texto_primario" android:text="@string/c11b_muestra_nombre" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:textSize="18sp"
+            android:textColor="@color/tp_texto_secundario" android:text="@string/c11b_muestra_meta" />
+
+        <TextView style="@style/T.Overline" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:paddingBottom="0dp"
+            android:text="@string/c11b_grande" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/opcionCompacta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_superficie"
+        android:padding="18dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textSize="17sp" android:textStyle="bold"
+            android:textColor="@color/tp_texto_primario" android:text="@string/c11b_muestra_nombre" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" android:textSize="13sp"
+            android:textColor="@color/tp_texto_secundario" android:text="@string/c11b_muestra_meta" />
+
+        <TextView style="@style/T.Overline" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:paddingBottom="0dp"
+            android:text="@string/c11b_compacto" />
+    </LinearLayout>
+
+    <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/continuar"
+        style="@style/Widget.TuPastilla.Boton.Primario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/continuar" />
+</LinearLayout>

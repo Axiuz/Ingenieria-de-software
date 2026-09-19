@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Base comun a los cuatro modos de vision. Solo cambian los colores de estado y de
+  accion: cada modo es un ThemeOverlay que redefine esos cuatro atributos y nada mas.
+-->
+<resources>
+    <color name="tp_fondo">#FF0F1720</color>
+    <color name="tp_superficie">#FF1A2430</color>
+    <color name="tp_borde">#FF2E3D4D</color>
+    <color name="tp_texto_primario">#FFF2F7FB</color>
+    <color name="tp_texto_secundario">#FFB8C7D6</color>
+    <color name="tp_texto_terciario">#FF8FA8BF</color>
+    <color name="tp_sobre_accion">#FF0A1220</color>
+    <color name="tp_transparente">#00000000</color>
+
+    <!-- modo 1 · estandar -->
+    <color name="tp_m1_confirmada">#FF6EE7A0</color>
+    <color name="tp_m1_omitida">#FFFF6B6B</color>
+    <color name="tp_m1_pendiente">#FF8FA8BF</color>
+    <color name="tp_m1_accion">#FF4DA3FF</color>
+
+    <!-- modo 2 · protan / deutan -->
+    <color name="tp_m2_confirmada">#FF4DD0E1</color>
+    <color name="tp_m2_omitida">#FFE8A33D</color>
+    <color name="tp_m2_pendiente">#FF8FA8BF</color>
+    <color name="tp_m2_accion">#FF4DA3FF</color>
+
+    <!-- modo 3 · tritan -->
+    <color name="tp_m3_confirmada">#FF6EE7A0</color>
+    <color name="tp_m3_omitida">#FFFF6B6B</color>
+    <color name="tp_m3_pendiente">#FFB8C7D6</color>
+    <color name="tp_m3_accion">#FFF2F7FB</color>
+
+    <!-- modo 4 · sin color -->
+    <color name="tp_m4_confirmada">#FFF2F7FB</color>
+    <color name="tp_m4_omitida">#FFF2F7FB</color>
+    <color name="tp_m4_pendiente">#FF8FA8BF</color>
+    <color name="tp_m4_accion">#FFF2F7FB</color>
+</resources>

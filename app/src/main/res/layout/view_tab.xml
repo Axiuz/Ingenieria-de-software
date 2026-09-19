@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Una pestana. MainActivity le pone icono, texto y color segun cual este activa. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:minHeight="?attr/tpTouchMin"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingTop="10dp"
+    android:paddingBottom="12dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <View
+        android:id="@+id/indicador"
+        android:layout_width="28dp"
+        android:layout_height="@dimen/tp_borde_destacado"
+        android:layout_marginBottom="7dp"
+        android:background="@color/tp_transparente" />
+
+    <ImageView
+        android:id="@+id/icono"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/etiqueta"
+        style="@style/T.Etiqueta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+</LinearLayout>

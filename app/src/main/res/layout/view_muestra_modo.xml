@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Una opcion de C11: tres muestras (relleno, borde, discontinuo) y su etiqueta.
+  Los colores se resuelven con el ThemeOverlay de ese modo, no con @color.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/tpTouchMin"
+    android:orientation="vertical"
+    android:background="@drawable/bg_superficie"
+    android:padding="18dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View android:id="@+id/muestra1" android:layout_width="0dp" android:layout_height="46dp"
+            android:layout_weight="1" />
+
+        <View android:id="@+id/muestra2" android:layout_width="0dp" android:layout_height="46dp"
+            android:layout_weight="1" android:layout_marginStart="10dp" />
+
+        <View android:id="@+id/muestra3" android:layout_width="0dp" android:layout_height="46dp"
+            android:layout_weight="1" android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/etiqueta"
+        style="@style/T.Meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" />
+</LinearLayout>

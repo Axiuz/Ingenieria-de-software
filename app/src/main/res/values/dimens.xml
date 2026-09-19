@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- densidad accesible · la de por defecto -->
+    <dimen name="tp_text_display">48sp</dimen>
+    <dimen name="tp_text_titulo">40sp</dimen>
+    <dimen name="tp_text_cuerpo">24sp</dimen>
+    <dimen name="tp_text_etiqueta">20sp</dimen>
+    <dimen name="tp_text_tarjeta">22sp</dimen>
+    <dimen name="tp_text_meta">18sp</dimen>
+    <dimen name="tp_touch_min">64dp</dimen>
+    <dimen name="tp_sep">24dp</dimen>
+    <dimen name="tp_icono_estado">48dp</dimen>
+
+    <!-- densidad compacta · mismos nombres, otra escala -->
+    <dimen name="tp_c_text_display">28sp</dimen>
+    <dimen name="tp_c_text_titulo">22sp</dimen>
+    <dimen name="tp_c_text_cuerpo">16sp</dimen>
+    <dimen name="tp_c_text_etiqueta">13sp</dimen>
+    <dimen name="tp_c_text_tarjeta">17sp</dimen>
+    <dimen name="tp_c_text_meta">13sp</dimen>
+    <dimen name="tp_c_touch_min">48dp</dimen>
+    <dimen name="tp_c_sep">12dp</dimen>
+    <dimen name="tp_c_icono_estado">40dp</dimen>
+
+    <!-- iguales en las dos densidades -->
+    <dimen name="tp_pad_pantalla">20dp</dimen>
+    <dimen name="tp_radio_tarjeta">14dp</dimen>
+    <dimen name="tp_radio_boton">16dp</dimen>
+    <dimen name="tp_radio_grande">20dp</dimen>
+    <dimen name="tp_borde_estado">2dp</dimen>
+    <dimen name="tp_borde_destacado">3dp</dimen>
+    <dimen name="tp_borde_sin_color">4dp</dimen>
+</resources>

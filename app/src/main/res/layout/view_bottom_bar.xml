@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Barra propia y no BottomNavigationView: las cuatro pestanas tienen que respetar el
+  area tactil de ?attr/tpTouchMin y el borde superior de la pestana activa, que es lo
+  que las distingue cuando el modo 4 quita el color.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/tp_borde" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/tp_fondo">
+
+        <include android:id="@+id/tabHoy" layout="@layout/view_tab" />
+        <include android:id="@+id/tabMedicinas" layout="@layout/view_tab" />
+        <include android:id="@+id/tabHistorial" layout="@layout/view_tab" />
+        <include android:id="@+id/tabAjustes" layout="@layout/view_tab" />
+    </LinearLayout>
+</LinearLayout>

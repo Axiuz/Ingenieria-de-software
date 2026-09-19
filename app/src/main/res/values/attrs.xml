@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Los cuatro colores de estado salen del tema, nunca de @color directo: asi un
+  ThemeOverlay cambia el modo de vision entero sin tocar ningun layout.
+
+  Los tamanos van como atributo de dimension y no como @dimen porque un ThemeOverlay
+  no puede sobrescribir dimens: es lo que permite cambiar de densidad con recreate().
+-->
+<resources>
+    <attr name="tpConfirmada" format="color" />
+    <attr name="tpOmitida" format="color" />
+    <attr name="tpPendiente" format="color" />
+    <attr name="tpAccion" format="color" />
+
+    <attr name="tpTextDisplay" format="dimension" />
+    <attr name="tpTextTitulo" format="dimension" />
+    <attr name="tpTextCuerpo" format="dimension" />
+    <attr name="tpTextEtiqueta" format="dimension" />
+    <attr name="tpTextTarjeta" format="dimension" />
+    <attr name="tpTextMeta" format="dimension" />
+    <attr name="tpTouchMin" format="dimension" />
+    <attr name="tpSep" format="dimension" />
+    <attr name="tpIconoEstado" format="dimension" />
+</resources>
