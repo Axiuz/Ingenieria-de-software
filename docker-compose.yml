@@ -1,0 +1,49 @@
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: tupastilla
+      MYSQL_USER: tupastilla
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?define MYSQL_PASSWORD en .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?define MYSQL_ROOT_PASSWORD en .env}
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  migrate:
+    build:
+      context: ./tupastilla-api
+      dockerfile: Dockerfile.migrate
+    env_file: .env
+    environment:
+      DATABASE_URL: mysql://tupastilla:${MYSQL_PASSWORD}@db:3306/tupastilla
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    image: ${API_IMAGE:-ghcr.io/axiuz/tupastilla-api:latest}
+    build: ./tupastilla-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://tupastilla:${MYSQL_PASSWORD}@db:3306/tupastilla
+    ports:
+      - "3000:3000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  db-data:
