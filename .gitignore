@@ -1,6 +1,15 @@
-target/
-.idea/
 *.iml
-.vscode/
+.gradle/
+.idea/
+.kotlin/
+build/
+captures/
+local.properties
 .DS_Store
-ENTREGA.md
+
+# Demo grabada: vive en el disco, no en el repositorio (pesa 13 MB)
+docs/demo/
+
+# Secretos locales
+.env
+tupastilla-api/.env
