@@ -260,3 +260,33 @@ describe("rutas protegidas y roles", () => {
     expect(res.status).toBe(403);
   });
 });
+
+describe("cabecera Cache-Control", () => {
+  it.each([
+    ["/health", 200],
+    ["/nada", 404],
+    ["/api/me", 401]
+  ])("GET %s responde %i con no-store", async (ruta, status) => {
+    const res = await request(buildTestApp().app).get(ruta);
+    expect(res.status).toBe(status);
+    expect(res.headers["cache-control"]).toBe("no-store");
+  });
+
+  it("es no-store en la respuesta de login que lleva los tokens", async () => {
+    const t = buildTestApp();
+    await registrar(t, "cache@correo.mx");
+    const res = await request(t.app).post("/api/auth/login").send({ email: "cache@correo.mx", password: VALID_PASSWORD });
+    expect(res.status).toBe(200);
+    expect(res.body.accessToken).toBeDefined();
+    expect(res.headers["cache-control"]).toBe("no-store");
+  });
+
+  it("es no-store en un 400 por JSON inválido", async () => {
+    const res = await request(buildTestApp().app)
+      .post("/api/auth/login")
+      .set("Content-Type", "application/json")
+      .send("{mal");
+    expect(res.status).toBe(400);
+    expect(res.headers["cache-control"]).toBe("no-store");
+  });
+});

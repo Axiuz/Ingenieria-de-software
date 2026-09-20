@@ -53,6 +53,12 @@ export function createApp(deps: AppDeps) {
   // en X-Forwarded-For dejaria falsificarla.
   app.set("trust proxy", config.TRUST_PROXY ? 1 : false);
   app.use(helmet());
+  // ZAP (10049) avisó de que la respuesta del login, con el access y el refresh token, podía
+  // quedar en una caché intermedia. Antes de las rutas para que alcance también a 401 y 404.
+  app.use((_req, res, next) => {
+    res.set("Cache-Control", "no-store");
+    next();
+  });
   // La app movil no necesita CORS: cerrado salvo los origenes configurados.
   app.use(cors({ origin: config.CORS_ORIGINS.length > 0 ? config.CORS_ORIGINS : false }));
   // Ninguna peticion legitima pesa mas; corta abusos de memoria.
