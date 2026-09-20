@@ -97,8 +97,15 @@ Si existen los secretos `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`,
 `ANDROID_KEY_ALIAS` y `ANDROID_KEY_PASSWORD`, el mismo job publica además el APK de release
 firmado. Sin esos secretos el despliegue no falla: publica solo el APK de prueba.
 
-**Evidencia:** `evidencias/pipeline-exitoso.png`, `evidencias/despliegue.png` y el enlace a la
-ejecución en GitHub Actions.
+**Verificación hecha el 20 de septiembre de 2026.** Con los artefactos que publicó la ejecución
+[35495568857](https://github.com/Axiuz/Ingenieria-de-software/actions/runs/35495568857), sin
+compilar nada: `docker compose up -d` bajó `ghcr.io/axiuz/tupastilla-api:latest`, migró y sembró
+MySQL y respondió `{"status":"ok"}` en `/health` y 401 en `/api/me` sin token; el APK del release
+[build-4](https://github.com/Axiuz/Ingenieria-de-software/releases/tag/build-4) se instaló en el
+emulador y la cuenta creada desde la app quedó en MySQL con hash bcrypt de coste 12.
+
+**Evidencia:** `evidencias/despliegue-apk-en-emulador.png` (APK del release corriendo contra esa
+API), `evidencias/pipeline-exitoso.png` y el enlace a la ejecución en GitHub Actions.
 
 ---
 
