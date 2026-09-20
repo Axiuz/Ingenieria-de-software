@@ -124,6 +124,11 @@ class SeedDataSource(
     }
 
     private companion object {
+    // Textos repetidos en los datos de prueba: SonarQube los marcó como literales duplicados (S1192).
+        const val UNA_PASTILLA = "1 pastilla"
+        const val UNA_CAPSULA = "1 cápsula"
+        const val OVALADA_BLANCA = "Ovalada blanca"
+
         const val DIAS_DE_HISTORIAL = 6
         const val CONFIRMADAS_DE_HOY = 2
 
@@ -139,46 +144,46 @@ class SeedDataSource(
                     listOf("08:00" to Horario.TODOS_LOS_DIAS)
                 ),
                 Receta(
-                    "Metformina 850 mg", "1 pastilla", "Ovalada blanca",
+                    "Metformina 850 mg", UNA_PASTILLA, OVALADA_BLANCA,
                     "Con la comida", 28,
                     listOf("08:00" to Horario.TODOS_LOS_DIAS, "20:00" to Horario.TODOS_LOS_DIAS)
                 )
             ),
             Persona(nombre = "Luis Ortega", nota = "Habitación 7") to listOf(
                 Receta(
-                    "Enalapril 10 mg", "1 pastilla", "Redonda naranja",
+                    "Enalapril 10 mg", UNA_PASTILLA, "Redonda naranja",
                     "Antes del desayuno", 30,
                     listOf("08:00" to Horario.TODOS_LOS_DIAS, "20:00" to Horario.TODOS_LOS_DIAS)
                 )
             ),
             Persona(nombre = "Carmen Díaz", nota = "Habitación 9") to listOf(
                 Receta(
-                    "Vitamina D", "1 cápsula", "Cápsula amarilla",
+                    "Vitamina D", UNA_CAPSULA, "Cápsula amarilla",
                     "Sin indicaciones especiales", 46,
                     // lunes (2) y jueves (5)
                     listOf("14:00" to "2,5")
                 ),
                 Receta(
-                    "Paracetamol 500 mg", "1 pastilla", "Ovalada blanca",
+                    "Paracetamol 500 mg", UNA_PASTILLA, OVALADA_BLANCA,
                     "Solo si tiene dolor", 12,
                     listOf("08:00" to Horario.TODOS_LOS_DIAS)
                 )
             ),
             Persona(nombre = "Alberto Ruiz", nota = "Habitación 12") to listOf(
                 Receta(
-                    "Levotiroxina 75 mcg", "1 pastilla", "Redonda blanca",
+                    "Levotiroxina 75 mcg", UNA_PASTILLA, "Redonda blanca",
                     "En ayunas, media hora antes del desayuno", 60,
                     listOf("07:00" to Horario.TODOS_LOS_DIAS)
                 ),
                 Receta(
-                    "Omeprazol 20 mg", "1 cápsula", "Cápsula rosa y blanca",
+                    "Omeprazol 20 mg", UNA_CAPSULA, "Cápsula rosa y blanca",
                     "En ayunas", 25,
                     listOf("07:00" to Horario.TODOS_LOS_DIAS)
                 )
             ),
             Persona(nombre = "Esperanza Vidal", nota = "Habitación 15") to listOf(
                 Receta(
-                    "Furosemida 40 mg", "1 pastilla", "Redonda blanca ranurada",
+                    "Furosemida 40 mg", UNA_PASTILLA, "Redonda blanca ranurada",
                     "No darla por la noche", 18,
                     listOf("08:00" to Horario.TODOS_LOS_DIAS, "14:00" to Horario.TODOS_LOS_DIAS)
                 ),
@@ -199,7 +204,7 @@ class SeedDataSource(
                     )
                 ),
                 Receta(
-                    "Amlodipino 5 mg", "1 pastilla", "Redonda blanca",
+                    "Amlodipino 5 mg", UNA_PASTILLA, "Redonda blanca",
                     "Con la cena", 30,
                     listOf("20:00" to Horario.TODOS_LOS_DIAS)
                 )
@@ -213,12 +218,12 @@ class SeedDataSource(
                 listOf("08:00" to Horario.TODOS_LOS_DIAS)
             ),
             Receta(
-                "Metformina 850 mg", "1 pastilla", "Ovalada blanca",
+                "Metformina 850 mg", UNA_PASTILLA, OVALADA_BLANCA,
                 "Con la comida", 28,
                 listOf("08:00" to Horario.TODOS_LOS_DIAS, "20:00" to Horario.TODOS_LOS_DIAS)
             ),
             Receta(
-                "Vitamina D", "1 cápsula", "Cápsula amarilla",
+                "Vitamina D", UNA_CAPSULA, "Cápsula amarilla",
                 "Sin indicaciones especiales", 46,
                 // lunes (2) y jueves (5)
                 listOf("14:00" to "2,5")
