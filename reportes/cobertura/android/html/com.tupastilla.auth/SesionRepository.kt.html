@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SesionRepository.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.tupastilla.auth</a> &gt; <span class="el_source">SesionRepository.kt</span></div><h1>SesionRepository.kt</h1><pre class="source lang-java linenums">package com.tupastilla.auth
+
+<span class="pc" id="L3">class SesionRepository(</span>
+<span class="fc" id="L4">    private val api: AuthApi,</span>
+<span class="fc" id="L5">    private val almacen: AlmacenSesion,</span>
+<span class="pc" id="L6">    private val reloj: () -&gt; Long = System::currentTimeMillis</span>
+<span class="nc" id="L7">) {</span>
+
+    @Volatile private var cache: Sesion? = null
+
+    val actual: Sesion?
+<span class="fc bfc" id="L12" title="All 4 branches covered.">        get() = cache ?: almacen.leer()?.also { cache = it }</span>
+
+<span class="fc bfc" id="L14" title="All 2 branches covered.">    fun haySesion(): Boolean = actual != null</span>
+
+    suspend fun iniciarSesion(correo: String, password: String): Sesion =
+<span class="fc" id="L17">        guardar(api.iniciarSesion(ValidadorCredenciales.normalizarCorreo(correo), password))</span>
+
+    suspend fun registrar(correo: String, nombre: String, password: String, rol: String): Sesion =
+<span class="fc" id="L20">        guardar(api.registrar(ValidadorCredenciales.normalizarCorreo(correo), nombre.trim(), password, rol))</span>
+
+    /**
+     * Refresca si el access token caduco. Solo borra la sesion si el servidor dice que el
+     * refresh ya no vale; un fallo de red o del servidor conserva la sesion y se propaga.
+     */
+    suspend fun tokenVigente(): String? {
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        val sesion = actual ?: return null</span>
+<span class="fc" id="L28">        val claims = JwtClaims.leer(sesion.accessToken)</span>
+<span class="fc bfc" id="L29" title="All 4 branches covered.">        if (claims != null &amp;&amp; claims.vigente(reloj())) return sesion.accessToken</span>
+<span class="fc" id="L30">        return try {</span>
+<span class="fc" id="L31">            guardar(api.refrescar(sesion.refreshToken)).accessToken</span>
+<span class="fc" id="L32">        } catch (e: AuthException) {</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if (e.fallo != FalloAuth.SESION_EXPIRADA) throw e</span>
+<span class="fc" id="L34">            olvidar()</span>
+<span class="fc" id="L35">            null</span>
+        }
+    }
+
+    /** Olvida la sesion local antes de avisar al servidor, asi cerrar sesion funciona sin conexion. */
+    suspend fun cerrarSesion() {
+<span class="fc" id="L41">        val sesion = actual</span>
+<span class="fc" id="L42">        olvidar()</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (sesion != null) {</span>
+<span class="pc" id="L44">            runCatching { api.cerrarSesion(sesion.refreshToken) }</span>
+        }
+<span class="fc" id="L46">    }</span>
+
+    private fun guardar(sesion: Sesion): Sesion {
+<span class="fc" id="L49">        almacen.guardar(sesion)</span>
+<span class="fc" id="L50">        cache = sesion</span>
+<span class="fc" id="L51">        return sesion</span>
+    }
+
+    private fun olvidar() {
+<span class="fc" id="L55">        cache = null</span>
+<span class="fc" id="L56">        almacen.borrar()</span>
+<span class="fc" id="L57">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

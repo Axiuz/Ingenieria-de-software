@@ -1,0 +1,66 @@
+{
+  "herramienta": "MobSF (static analyzer)",
+  "archivo": "app-release-unsigned.apk",
+  "version_app": "1.0",
+  "security_score": 61,
+  "hallazgos": {
+    "high": [
+      "Missing Code Signing certificate",
+      "App can be installed on a vulnerable unpatched Android version 7.0, [minSdk=24]"
+    ],
+    "warning": [
+      "Base config is configured to trust system certificates",
+      "Application Data can be Backed up [android:allowBackup=true]",
+      "Broadcast Receiver (androidx.profileinstaller.ProfileInstallReceiver) is Protected by a permission, but the protection level of the permission should be checked. Permission: android.permission.DUMP [android:exported=true]",
+      "The App uses an insecure Random Number Generator.",
+      "This app may contain hardcoded secrets"
+    ],
+    "info": [
+      "The App logs information. Sensitive information should never be logged."
+    ],
+    "secure": [
+      "Base config is configured to disallow clear text traffic to all domains",
+      "This App uses SSL certificate pinning to detect or  prevent MITM attacks in secure communication channel.",
+      "This application has no privacy trackers"
+    ],
+    "hotspot": [
+      "Found 1 critical permission(s)"
+    ]
+  },
+  "permisos_criticos": [
+    "android.permission.POST_NOTIFICATIONS"
+  ],
+  "manifest": [
+    {
+      "severidad": "high",
+      "titulo": "App can be installed on a vulnerable unpatched Android version 7.0, [minSdk=24]"
+    },
+    {
+      "severidad": "info",
+      "titulo": "App has a Network Security Configuration[android:networkSecurityConfig=@xml/network_security_config]"
+    },
+    {
+      "severidad": "warning",
+      "titulo": "Application Data can be Backed up [android:allowBackup=true]"
+    },
+    {
+      "severidad": "warning",
+      "titulo": "Broadcast Receiver (androidx.profileinstaller.ProfileInstallReceiver) is Protected by a permission, but the protection level of the permission should be checked. <strong>Permission: </strong>android.permission.DUMP [android:exported=true]"
+    }
+  ],
+  "reglas_de_codigo": {
+    "android_logging": {
+      "severidad": "info",
+      "archivos": 104
+    },
+    "android_ssl_pinning": {
+      "severidad": "good",
+      "archivos": 4
+    },
+    "android_insecure_random": {
+      "severidad": "warning",
+      "archivos": 4
+    }
+  },
+  "trackers": 0
+}

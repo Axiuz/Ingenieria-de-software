@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthApi.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.tupastilla.auth</a> &gt; <span class="el_source">AuthApi.kt</span></div><h1>AuthApi.kt</h1><pre class="source lang-java linenums">package com.tupastilla.auth
+
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.HttpUrl
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
+
+<span class="pc" id="L15">class AuthApi(</span>
+<span class="fc" id="L16">    private val baseUrl: HttpUrl,</span>
+<span class="fc" id="L17">    private val cliente: OkHttpClient,</span>
+<span class="pc" id="L18">    private val io: CoroutineDispatcher = Dispatchers.IO</span>
+<span class="nc" id="L19">) {</span>
+
+    suspend fun registrar(correo: String, nombre: String, password: String, rol: String): Sesion =
+<span class="fc" id="L22">        sesion(&quot;register&quot;, JSONObject()</span>
+<span class="fc" id="L23">            .put(&quot;email&quot;, correo).put(&quot;name&quot;, nombre).put(&quot;password&quot;, password).put(&quot;role&quot;, rol))</span>
+
+    suspend fun iniciarSesion(correo: String, password: String): Sesion =
+<span class="fc" id="L26">        sesion(&quot;login&quot;, JSONObject().put(&quot;email&quot;, correo).put(&quot;password&quot;, password))</span>
+
+    suspend fun refrescar(refreshToken: String): Sesion =
+<span class="fc" id="L29">        sesion(&quot;refresh&quot;, JSONObject().put(&quot;refreshToken&quot;, refreshToken))</span>
+
+    suspend fun cerrarSesion(refreshToken: String) {
+<span class="fc" id="L32">        publicar(&quot;logout&quot;, JSONObject().put(&quot;refreshToken&quot;, refreshToken))</span>
+<span class="fc" id="L33">    }</span>
+
+<span class="fc" id="L35">    private suspend fun sesion(ruta: String, cuerpo: JSONObject): Sesion {</span>
+<span class="fc" id="L36">        val texto = publicar(ruta, cuerpo)</span>
+<span class="fc" id="L37">        return try {</span>
+<span class="fc" id="L38">            Sesion.deJson(texto)</span>
+<span class="fc" id="L39">        } catch (e: JSONException) {</span>
+<span class="fc" id="L40">            throw AuthException(FalloAuth.SERVIDOR, e)</span>
+        }
+    }
+
+    /**
+     * Lee el cuerpo dentro del dispatcher de IO: leerlo fuera cerraba la app con
+     * NetworkOnMainThreadException. Un corte de red al leerlo tambien es FalloAuth.RED.
+     */
+<span class="fc" id="L48">    private suspend fun publicar(ruta: String, cuerpo: JSONObject): String = withContext(io) {</span>
+<span class="fc" id="L49">        val url = baseUrl.newBuilder().addPathSegments(&quot;api/auth/$ruta&quot;).build()</span>
+<span class="fc" id="L50">        val peticion = Request.Builder()</span>
+<span class="fc" id="L51">            .url(url)</span>
+<span class="fc" id="L52">            .post(cuerpo.toString().toRequestBody(JSON))</span>
+<span class="fc" id="L53">            .build()</span>
+<span class="fc" id="L54">        try {</span>
+<span class="fc" id="L55">            cliente.newCall(peticion).execute().use { respuesta -&gt;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                if (!respuesta.isSuccessful) throw AuthException(falloPara(ruta, respuesta.code))</span>
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">                respuesta.body?.string().orEmpty()</span>
+            }
+<span class="fc" id="L59">        } catch (e: IOException) {</span>
+<span class="fc" id="L60">            throw AuthException(FalloAuth.RED, e)</span>
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">    }</span>
+
+    /** Un 401 en login son credenciales malas; en refresh, sesion vencida. */
+<span class="fc" id="L65">    private fun falloPara(ruta: String, codigo: Int): FalloAuth = when {</span>
+<span class="fc bfc" id="L66" title="All 4 branches covered.">        codigo == 401 &amp;&amp; ruta == &quot;login&quot; -&gt; FalloAuth.CREDENCIALES</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        codigo == 401 -&gt; FalloAuth.SESION_EXPIRADA</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        codigo == 409 -&gt; FalloAuth.CORREO_OCUPADO</span>
+<span class="fc bfc" id="L69" title="All 4 branches covered.">        codigo == 400 || codigo == 413 -&gt; FalloAuth.DATOS_INVALIDOS</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        codigo == 429 -&gt; FalloAuth.DEMASIADOS_INTENTOS</span>
+<span class="fc" id="L71">        else -&gt; FalloAuth.SERVIDOR</span>
+<span class="fc" id="L72">    }</span>
+
+    private companion object {
+<span class="fc" id="L75">        val JSON = &quot;application/json; charset=utf-8&quot;.toMediaType()</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

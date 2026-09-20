@@ -99,6 +99,7 @@ Los escaneos de seguridad se ejecutan en el job `seguridad` del workflow `.githu
 - gitleaks: secretos en todo el historial.
 - Trivy: vulnerabilidades CRITICAL y HIGH de la imagen Docker; rompe el pipeline si hay alguna con parche.
 - ZAP baseline: escaneo pasivo de la API levantada con `docker compose`.
+- ZAP API scan: escaneo activo guiado por el contrato `tupastilla-api/openapi.yaml`.
 
 Los reportes generados se almacenan como artefactos en el pipeline. gitleaks, Trivy y ZAP también se ejecutaron en local con sus imágenes oficiales de Docker; los resultados están en la sección 7.
 
@@ -109,7 +110,7 @@ Los reportes generados se almacenan como artefactos en el pipeline. gitleaks, Tr
 |---------------------|--------------------------------------|--------------------------------------------|
 | gitleaks            | historial (7 commits), archivos pendientes | 0 secretos detectados                     |
 | Trivy 0.57.1        | imagen de la API                    | 4 HIGH al inicio (npm: brace-expansion x2, ip-address, tar); tras eliminar npm, npx y corepack: 0 HIGH y 0 CRITICAL |
-| OWASP ZAP baseline  | API en Docker con MySQL            | 0 fallos, 0 avisos; 66 reglas pasadas; 1 regla ignorada (Storable and Cacheable Content, 10049) |
+| OWASP ZAP baseline  | API en Docker con MySQL            | 66 reglas pasadas; 1 aviso (10049) corregido, ver sección 8 |
 | pnpm audit --prod   | dependencias prod                  | 0 vulnerabilidades                       |
 | CodeQL              | ejecución en GitHub               | pendiente de primera ejecución en pipeline |
 ### 7.2 Prueba de extremo a extremo
@@ -125,3 +126,57 @@ Los reportes generados se almacenan como artefactos en el pipeline. gitleaks, Tr
 | V-07 | Al cerrar sesión y entrar con otra cuenta en el mismo teléfono, la nueva cuenta veía los medicamentos, el nombre y las alarmas de la anterior (MASVS-STORAGE / privacidad) | Alta      | `CuentaLocal` guarda de qué cuenta son los datos; si entra otra, se cancelan alarmas y notificaciones y se vacían Room y preferencias | Emulador: el cuidador entra al onboarding sin datos del autónomo; las 2 alarmas del autónomo aparecen como alarm_cancelled; 6 pruebas en `CuentaLocalTest.kt` |
 | V-08 | 4 vulnerabilidades HIGH en el npm incluido en la imagen Docker           | Alta      | Se quitan npm, npx y corepack de la imagen final                            | Trivy 0 HIGH / 0 CRITICAL                 |
 | V-09 | La app leía la respuesta de la API en hilo principal: cierre de app con NetworkOnMainThreadException al iniciar sesión | Alta      | Cuerpo leído dentro del dispatcher de IO; corte de red al leerlo es fallo de red | 2 pruebas nuevas en `AuthApiTest.kt` que fallan con código anterior y pasan con nuevo |
+
+## 8. Escaneos de esta entrega (20 de septiembre de 2026)
+
+### 8.1 OWASP ZAP
+
+Tres escaneos, con sus reportes en `reportes/seguridad-zap/`:
+
+1. **Baseline pasivo sin reglas ignoradas** contra la API en Docker: 66 reglas pasadas y un
+   aviso, `10049 Storable and Cacheable Content`, en `/health` y en las rutas 404.
+2. **Escaneo activo con el contrato OpenAPI** y un token de ADMIN inyectado como cabecera
+   `Authorization`, de modo que ZAP sí recorrió los endpoints protegidos: 13 rutas, 48 URLs,
+   118 reglas pasadas, 0 fallos y 0 avisos.
+3. **ZAP como proxy del emulador Android**, para ver el tráfico real de la app: registro,
+   login fallido, login correcto y cierre de sesión. 3 alertas informativas, ninguna de riesgo.
+
+| ID | Hallazgo | Severidad | Corrección | Evidencia |
+|----|---------|-----------|-----------|-----------|
+| V-10 | Las respuestas de la API no traían `Cache-Control`. Una caché intermedia podía almacenar la respuesta del login, que lleva el access token y el refresh token. | Baja | Middleware que añade `Cache-Control: no-store` a todas las respuestas, antes de cualquier ruta, en `src/app.ts`. Cinco pruebas nuevas cubren 200, 404, 401, login y 400. | El segundo escaneo reporta `Non-Storable Content` en lugar de `Storable and Cacheable Content`: `reportes/seguridad-zap/2-despues/` |
+
+Con esa corrección dejó de hacer falta silenciar reglas: se borró `.zap/rules.tsv`. El aviso
+`10020` (anti-clickjacking) que antes se ignoraba ya no aparece, porque helmet envía
+`X-Frame-Options: SAMEORIGIN`.
+
+Durante el escaneo móvil, el cierre de sesión respondió **429**: el límite de 20 peticiones cada
+15 minutos por IP seguía agotado por el escaneo activo anterior. La app cerró la sesión
+localmente de todos modos. Es el comportamiento esperado del rate limit, no un defecto.
+
+### 8.2 SonarQube Community
+
+| Métrica | API antes | API después | App antes | App después |
+|---|---|---|---|---|
+| Vulnerabilities | 0 | 0 | 4 | 1 |
+| Bugs | 0 | 0 | 0 | 0 |
+| Code Smells | 0 | 0 | 53 | 48 |
+| Deuda técnica | 0 min | 0 min | 286 min | 250 min |
+| Cobertura | 97.7 % | 97.7 % | sin medir | 97.4 % |
+
+Corregidos: tráfico en claro implícito en el manifiesto (`xml:S5332`), tres literales duplicados
+en los datos de prueba (`kotlin:S1192`) y tres pruebas repetidas en la API (`typescript:S5976`).
+Marcados como falso positivo con su justificación: la difusión de intents de `AlarmaScheduler`
+(el `Intent` es explícito hacia un receptor no exportado) y los dos dispatchers de los ViewModel
+(`AlarmManager` es una llamada bloqueante del sistema). Aceptado con justificación: la clave del
+Keystore utilizable sin autenticación del usuario, porque la sesión se renueva en segundo plano.
+
+### 8.3 MobSF sobre el APK de release
+
+Puntuación de seguridad 61/100 (`reportes/seguridad-movil/`). Hallazgos altos: la falta de
+certificado de firma —se analizó el APK sin firmar; el que publica el pipeline va firmado— y el
+`minSdk 24`, aceptado porque el público de la app usa teléfonos viejos. Aviso revisado:
+`allowBackup=true`, mitigado porque `backup_rules.xml` y `data_extraction_rules.xml` excluyen el
+archivo de sesión. Falsos positivos: generador aleatorio inseguro y registros en el log, los dos
+en código de librerías ofuscado por R8, y "posibles secretos embebidos", que son una etiqueta de
+interfaz y dos identificadores de recursos. El análisis confirma que no hay rastreadores de
+privacidad y que el tráfico en claro está prohibido en release.

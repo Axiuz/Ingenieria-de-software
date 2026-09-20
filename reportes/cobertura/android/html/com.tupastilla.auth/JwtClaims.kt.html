@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtClaims.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.tupastilla.auth</a> &gt; <span class="el_source">JwtClaims.kt</span></div><h1>JwtClaims.kt</h1><pre class="source lang-java linenums">package com.tupastilla.auth
+
+import okio.ByteString.Companion.decodeBase64
+import org.json.JSONException
+import org.json.JSONObject
+
+/**
+ * Lee el payload del access token sin verificar la firma, que la comprueba el servidor.
+ * El cliente solo lo usa para saber el rol y cuando caduca.
+ */
+<span class="pc" id="L11">data class JwtClaims(val sujeto: String, val correo: String, val rol: String, val expiraEnSegundos: Long) {</span>
+
+    /** Da el token por caducado 30 s antes para cubrir relojes desfasados y la latencia de la peticion. */
+<span class="fc" id="L14">    fun vigente(ahoraMs: Long, margenMs: Long = MARGEN_MS): Boolean =</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        expiraEnSegundos * 1000 - margenMs &gt; ahoraMs</span>
+
+    companion object {
+        const val MARGEN_MS = 30_000L
+
+        fun leer(token: String): JwtClaims? {
+<span class="fc" id="L21">            val partes = token.split(&quot;.&quot;)</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">            if (partes.size != 3) return null</span>
+<span class="fc bfc" id="L23" title="All 4 branches covered.">            val payload = partes[1].decodeBase64()?.utf8() ?: return null</span>
+<span class="fc" id="L24">            return try {</span>
+<span class="fc" id="L25">                val json = JSONObject(payload)</span>
+<span class="fc" id="L26">                JwtClaims(</span>
+<span class="fc" id="L27">                    sujeto = json.getString(&quot;sub&quot;),</span>
+<span class="fc" id="L28">                    correo = json.getString(&quot;email&quot;),</span>
+<span class="fc" id="L29">                    rol = json.getString(&quot;role&quot;),</span>
+<span class="fc" id="L30">                    expiraEnSegundos = json.getLong(&quot;exp&quot;)</span>
+                )
+<span class="fc" id="L32">            } catch (e: JSONException) {</span>
+<span class="fc" id="L33">                null</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

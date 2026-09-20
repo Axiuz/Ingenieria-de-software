@@ -1,11 +1,12 @@
 # Análisis de calidad de código  
-18 de septiembre de 2026  
+20 de septiembre de 2026  
 
 ## 1. Herramientas  
 - Vitest con @vitest/coverage-v8 para pruebas unitarias y cobertura de código.  
 - ESLint 10 con plugins typescript-eslint y eslint-plugin-security para validación de estilos, tipos y vulnerabilidades.  
 - TypeScript con configuración estricta (strict, noUncheckedIndexedAccess) para detección de errores de tipos.  
-- jscpd para análisis de duplicación de código.  
+- jscpd para análisis de duplicación de código.
+- SonarQube Community Build en Docker para el tablero de métricas del proyecto completo (calidad, seguridad, duplicación y cobertura).  
 - pnpm audit para escaneo de vulnerabilidades en dependencias.  
 - Android Lint para análisis de calidad en interfaces y recursos.  
 - JUnit 4 con MockWebServer para probar el cliente HTTP y la sesión contra un servidor simulado.  
@@ -17,7 +18,7 @@
 |--------|-----|-----------------------------|------|--------|  
 | Líneas de código de producción | 754 | 576 | — | — |  
 | Líneas de pruebas | 712 | 533 | — | — |  
-| Pruebas ejecutadas | 82 (0 fallos) | 55 en la app, 42 del paquete auth (0 fallos) | 0 fallos | Cumple |  
+| Pruebas ejecutadas | 87 (0 fallos) | 55 en la app, 42 del paquete auth (0 fallos) | 0 fallos | Cumple |  
 | Cobertura de líneas | 100 % | 97.7 % | 80 % | Superada |  
 | Cobertura de ramas | 92.7 % | 97.0 % | 80 % | Superada |  
 | Cobertura de sentencias/instrucciones | 97.8 % | 93.2 % | 80 % | Superada |  
@@ -70,3 +71,31 @@ La prueba con MySQL real, Docker y la app en un emulador encontró cinco defecto
 | Al cambiar de cuenta en el mismo teléfono, la nueva cuenta veía los datos de la anterior | No había pruebas del flujo completo de cambio de cuenta | `CuentaLocal` borra los datos locales si entra otra cuenta; 6 pruebas en `CuentaLocalTest.kt` |
 | La tarea de cobertura de Gradle fallaba al correr junto con lint, como hace el pipeline | Cada tarea se había ejecutado por separado | `executionData` apunta al archivo exacto de JaCoCo |
 | La imagen Docker traía 4 vulnerabilidades altas en su npm | Trivy solo corre sobre la imagen construida | Se quitaron npm, npx y corepack de la imagen final |
+
+## 7. Tablero de SonarQube
+
+Instancia local de SonarQube Community (`sonarqube:community` en Docker, puerto 9000) con dos
+proyectos: `tupastilla-api`, analizado con el scanner CLI y la configuración versionada en
+`tupastilla-api/sonar-project.properties`, y `tupastilla-android`, analizado con el plugin
+`org.sonarqube` de Gradle declarado en `build.gradle.kts`. El token de análisis se pasa por la
+variable `SONAR_TOKEN` y no está en el repositorio.
+
+| Métrica | tupastilla-api | tupastilla-android |
+|---|---|---|
+| Líneas de código | 685 | 6 475 |
+| Bugs | 0 | 0 |
+| Vulnerabilities | 0 | 1 (aceptada: falta `verification-metadata.xml`) |
+| Security Hotspots | 0 | 0 |
+| Code Smells | 0 | 48 |
+| Deuda técnica | 0 min | 250 min |
+| Duplicación | 0.0 % | 0.0 % |
+| Cobertura | 97.7 % | 97.4 % (paquete `auth`) |
+| Quality Gate | OK | OK |
+
+Las 48 code smells que quedan son avisos heredados de Android Lint —recursos sin usar, overdraw,
+`SetTextI18n`, `NotifyDataSetChanged`— y están en la tabla de deuda técnica de la sección 3, con
+su prioridad y su acción en `docs/plan-mejora.md`. Los hallazgos corregidos y los marcados como
+falso positivo se detallan en `docs/rubrica.md`, sección 3.1.
+
+Métricas exportadas: `reportes/sonar/1-inicial/` (primer análisis) y `reportes/sonar/2-despues/`
+(tras las correcciones).

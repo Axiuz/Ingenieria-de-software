@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidadorCredenciales.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.tupastilla.auth</a> &gt; <span class="el_source">ValidadorCredenciales.kt</span></div><h1>ValidadorCredenciales.kt</h1><pre class="source lang-java linenums">package com.tupastilla.auth
+
+<span class="fc" id="L3">enum class ErrorCampo { CORREO_INVALIDO, PASSWORD_CORTA, PASSWORD_SIN_LETRA, PASSWORD_SIN_NUMERO, PASSWORD_LARGA, NOMBRE_VACIO }</span>
+
+/**
+ * Mismas reglas que la API (10 caracteres, letra y numero, maximo 72 bytes) para avisar
+ * antes de mandar la peticion.
+ */
+object ValidadorCredenciales {
+
+    const val PASSWORD_MINIMA = 10
+    private const val BYTES_MAXIMOS = 72
+<span class="fc" id="L13">    private val CORREO = Regex(&quot;^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$&quot;)</span>
+
+<span class="fc" id="L15">    fun normalizarCorreo(correo: String): String = correo.trim().lowercase()</span>
+
+    fun correo(correo: String): ErrorCampo? =
+<span class="fc bfc" id="L18" title="All 4 branches covered.">        if (CORREO.matches(normalizarCorreo(correo)) &amp;&amp; correo.length &lt;= 254) null</span>
+<span class="fc" id="L19">        else ErrorCampo.CORREO_INVALIDO</span>
+
+<span class="fc" id="L21">    fun password(password: String): ErrorCampo? = when {</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        password.length &lt; PASSWORD_MINIMA -&gt; ErrorCampo.PASSWORD_CORTA</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        password.toByteArray(Charsets.UTF_8).size &gt; BYTES_MAXIMOS -&gt; ErrorCampo.PASSWORD_LARGA</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        password.none { it.isLetter() } -&gt; ErrorCampo.PASSWORD_SIN_LETRA</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        password.none { it.isDigit() } -&gt; ErrorCampo.PASSWORD_SIN_NUMERO</span>
+<span class="fc" id="L26">        else -&gt; null</span>
+<span class="fc" id="L27">    }</span>
+
+    fun nombre(nombre: String): ErrorCampo? =
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (nombre.isBlank()) ErrorCampo.NOMBRE_VACIO else null</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

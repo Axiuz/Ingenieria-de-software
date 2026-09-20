@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="87" failures="0" errors="0" time="0.26977325">
+    <testsuite name="test/api.test.ts" timestamp="2026-09-20T06:09:25.311Z" hostname="MacBook-Air-de-Saul.local" tests="38" failures="0" errors="0" skipped="0" time="0.079803708">
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; GET /health responde ok" time="0.01166575">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; una ruta desconocida da 404" time="0.002806167">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; no expone x-powered-by y manda cabeceras de helmet" time="0.002187041">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; CORS cerrado por defecto y abierto solo a los orígenes configurados" time="0.004622209">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; JSON malformado da 400 INVALID_JSON" time="0.006155042">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; un cuerpo de más de 10 kB da 413" time="0.001523792">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="infraestructura HTTP &gt; un error inesperado da 500 genérico y se registra" time="0.007030042">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; registra y no expone el hash" time="0.001868833">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; no permite registrarse como ADMIN" time="0.00137">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; rechaza campos extra (mass assignment)" time="0.001053166">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; rechaza contraseñas débiles" time="0.000921542">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; trata la inyección SQL como texto y no autentica" time="0.003515667">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; rechaza operadores tipo NoSQL en lugar de texto" time="0.001115125">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; no distingue correo inexistente de contraseña mala" time="0.001986625">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; limita los intentos en /api/auth" time="0.002074125">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="registro e inicio de sesión &gt; refresh y logout por HTTP" time="0.002461583">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/me devuelve al usuario con un token válido" time="0.001259333">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/me responde 401 sin cabecera" time="0.000602375">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/me responde 401 con esquema Basic" time="0.000553583">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/me responde 401 con basura" time="0.000540125">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/me responde 401 con token de otro secreto" time="0.000624959">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/me da 404 si el usuario del token ya no existe" time="0.000735042">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/permisos para AUTONOMO" time="0.001218792">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/permisos para SUPERVISADO" time="0.001111458">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; /api/permisos para CUIDADOR" time="0.001059833">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; GET /api/users es solo para ADMIN" time="0.003140125">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; un token con rol ADMIN falsificado no pasa" time="0.001298292">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; ADMIN cambia un rol y el usuario pierde sus sesiones" time="0.0027655">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; ADMIN no puede cambiar su propio rol" time="0.00163">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; PATCH de rol con id que no es uuid" time="0.001547333">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; PATCH de rol con uuid inexistente" time="0.001847583">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; PATCH de rol con rol inválido" time="0.001843958">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="rutas protegidas y roles &gt; un no ADMIN no puede cambiar roles, ni el suyo" time="0.001208125">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="cabecera Cache-Control &gt; GET /health responde 200 con no-store" time="0.000638375">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="cabecera Cache-Control &gt; GET /nada responde 404 con no-store" time="0.000589833">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="cabecera Cache-Control &gt; GET /api/me responde 401 con no-store" time="0.000590666">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="cabecera Cache-Control &gt; es no-store en la respuesta de login que lleva los tokens" time="0.001123292">
+        </testcase>
+        <testcase classname="test/api.test.ts" name="cabecera Cache-Control &gt; es no-store en un 400 por JSON inválido" time="0.000676084">
+        </testcase>
+    </testsuite>
+    <testsuite name="test/auth.test.ts" timestamp="2026-09-20T06:09:25.313Z" hostname="MacBook-Air-de-Saul.local" tests="26" failures="0" errors="0" skipped="0" time="0.010492542">
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; firma y verifica sub, email y rol" time="0.002962459">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; incluye iss, aud, exp y jti" time="0.000279">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza un token firmado con otro secreto" time="0.0002495">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza alg none" time="0.0000975">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza HS512 aunque el secreto sea el correcto" time="0.000181792">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza otro issuer" time="0.000153416">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza otra audiencia" time="0.000157334">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza un token expirado" time="0.000141417">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza un token alterado" time="0.000145958">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza un rol desconocido" time="0.000154">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza un payload sin sub" time="0.000141208">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; rechaza un payload que es texto" time="0.000143625">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="TokenService &gt; genera refresh tokens distintos, con su hash y 7 días de vigencia" time="0.000267625">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; registra y devuelve una sesión sin el hash" time="0.002502333">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; rechaza un correo repetido con 409" time="0.000195291">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; inicia sesión con la contraseña correcta" time="0.000207125">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; con un correo inexistente responde 401 y aun así compara un hash" time="0.0004595">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; suma los fallos y bloquea al llegar al máximo" time="0.000236542">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; desbloquea al vencer el bloqueo y reinicia los contadores" time="0.000239875">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; rota el refresh token y detecta su reutilización" time="0.000260041">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; rechaza un refresh expirado" time="0.00011075">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; rechaza un refresh desconocido" time="0.000048916">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; rechaza un refresh cuyo usuario ya no existe" time="0.000061417">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; logout revoca el refresh y es idempotente" time="0.000100667">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; logout de un token desconocido no falla" time="0.000253042">
+        </testcase>
+        <testcase classname="test/auth.test.ts" name="AuthService &gt; usa el reloj del sistema si no se inyecta uno" time="0.000098958">
+        </testcase>
+    </testsuite>
+    <testsuite name="test/config-validation.test.ts" timestamp="2026-09-20T06:09:25.314Z" hostname="MacBook-Air-de-Saul.local" tests="23" failures="0" errors="0" skipped="0" time="0.179477">
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; aplica los valores por defecto" time="0.002085042">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; separa los orígenes de CORS" time="0.000176709">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; TRUST_PROXY=true activa el proxy" time="0.000121167">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; TRUST_PROXY=1 activa el proxy" time="0.000067625">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; un secreto corto no arranca y no se filtra en el mensaje" time="0.000584708">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; falla sin DATABASE_URL" time="0.000186208">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; rechaza PORT=abc" time="0.000185">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; rechaza BCRYPT_COST=4" time="0.000218167">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="loadConfig &gt; rechaza ACCESS_TOKEN_TTL_SECONDS=86400" time="0.000157542">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; normaliza correo y nombre y pone AUTONOMO por defecto" time="0.000564583">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; rechaza una contraseña sin número" time="0.0003895">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; rechaza una contraseña sin letra" time="0.000083833">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; rechaza una contraseña corta" time="0.000069584">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; rechaza una contraseña de más de 72 bytes" time="0.000060541">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; rechaza el rol ADMIN y los campos extra" time="0.000129041">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; los detalles no repiten el valor enviado" time="0.0002325">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; refreshSchema rechaza tokens cortos" time="0.000125209">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="esquemas de validación &gt; idSchema acepta un uuid y rechaza inyección" time="0.000268208">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="repositorios en memoria &gt; crea, busca, actualiza y lista" time="0.000612417">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="repositorios en memoria &gt; devuelve copias, no referencias" time="0.000040625">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="repositorios en memoria &gt; revoca por id y por usuario sin tocar a los demás" time="0.000122458">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="piezas sueltas &gt; bcryptHasher genera y verifica hashes reales" time="0.171709292">
+        </testcase>
+        <testcase classname="test/config-validation.test.ts" name="piezas sueltas &gt; requireRole sin autenticación previa responde 401" time="0.000133041">
+        </testcase>
+    </testsuite>
+</testsuites>
