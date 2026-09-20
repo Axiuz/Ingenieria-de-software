@@ -27,6 +27,25 @@ de su especificación de implementación (proyecto de diseño `4825c2b6`).
 - Solo la API con la pila completa en contenedores: `docker compose up -d`.
 - App en el emulador: `./gradlew :app:installDebug`. En debug la app apunta a http://10.0.2.2:3000 (la API del equipo anfitrión).
 
+## Compilar desde Android Studio
+
+1. Abrir Android Studio, ir a **File > Open** y elegir la carpeta raíz del repositorio (la que contiene `settings.gradle.kts`).
+2. Esperar el **Gradle Sync**. La primera vez descarga Gradle 9.5 y el JDK 25: tarda entre 3 y 10 minutos. Si aparece un aviso para instalar SDK 37 o build-tools, aceptarlo.
+3. Levantar la API antes de correr la app: en una terminal en la raíz del repositorio, ejecutar `docker compose up -d`. Sin la API, la app abre pero no permite iniciar sesión.
+4. Elegir el dispositivo en la barra superior, junto a la configuración `app`: un emulador o un teléfono conectado por USB con depuración activada.
+5. Pulsar **Run** (triángulo verde) o **Control+R**. Compila y instala la versión debug.
+
+### Con emulador  
+No hace falta configurar nada más. La app en debug apunta a `http://10.0.2.2:3000`, la dirección que ve el emulador hacia la computadora anfitriona.
+
+### Con teléfono por USB  
+La dirección `http://10.0.2.2:3000` no existe en el teléfono. Hacer lo siguiente:
+- En terminal: `adb reverse tcp:3000 tcp:3000`, que redirige el puerto 3000 del teléfono a la computadora por el cable.
+- En Android Studio: **Settings > Build, Execution, Deployment > Compiler > Command-line Options**, escribir `-Ptupastilla.apiUrlDebug=http://localhost:3000/`, luego pulsar **Run**.  
+Es necesario porque el debug solo permite tráfico sin cifrar hacia `10.0.2.2` o `localhost`.
+
+Quien prefiera no abrir Android Studio puede hacer lo mismo desde la terminal con `./gradlew :app:installDebug`.
+
 ## Ejecutar las pruebas
 - API: `cd tupastilla-api && pnpm test` (87 pruebas) y `pnpm test:coverage` (cobertura; el umbral de 80 % está en vitest.config.ts y romper el umbral falla el comando).
 - App: `./gradlew :app:testDebugUnitTest` (55 pruebas) y `./gradlew :app:verificarCoberturaAuth` (cobertura JaCoCo del paquete auth, mínimo 80 % de líneas y ramas).
