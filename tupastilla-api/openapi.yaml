@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: TuPastilla API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Role:
+      type: string
+      enum: [AUTONOMO, SUPERVISADO, CUIDADOR, ADMIN]
+    PublicUser:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string, format: email }
+        name: { type: string }
+        role: { $ref: "#/components/schemas/Role" }
+        createdAt: { type: string, format: date-time }
+    Session:
+      type: object
+      properties:
+        tokenType: { type: string, example: Bearer }
+        accessToken: { type: string }
+        expiresIn: { type: integer, example: 900 }
+        refreshToken: { type: string }
+        user: { $ref: "#/components/schemas/PublicUser" }
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }
+    Refresh:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken: { type: string, minLength: 20, maxLength: 200, example: "0123456789abcdefghijklmnop" }
+  responses:
+    Invalid:
+      description: Datos inválidos
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Unauthorized:
+      description: Sin token o token inválido
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Forbidden:
+      description: El rol no tiene permiso
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+paths:
+  /health:
+    get:
+      summary: Estado de la API
+      responses:
+        "200":
+          description: OK
+  /api/auth/register:
+    post:
+      summary: Crea una cuenta (nunca ADMIN)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, name, password]
+              properties:
+                email: { type: string, format: email, example: "zap@tupastilla.test" }
+                name: { type: string, example: "Prueba ZAP" }
+                password: { type: string, example: "Contrasena123" }
+                role: { type: string, enum: [AUTONOMO, SUPERVISADO, CUIDADOR] }
+      responses:
+        "201":
+          description: Cuenta creada con sesión
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Session" }
+        "400": { $ref: "#/components/responses/Invalid" }
+        "409":
+          description: El correo ya existe
+  /api/auth/login:
+    post:
+      summary: Inicia sesión
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email, example: "zap@tupastilla.test" }
+                password: { type: string, example: "Contrasena123" }
+      responses:
+        "200":
+          description: Sesión
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Session" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /api/auth/refresh:
+    post:
+      summary: Rota el refresh token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Refresh" }
+      responses:
+        "200":
+          description: Sesión nueva
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Session" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /api/auth/logout:
+    post:
+      summary: Revoca el refresh token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Refresh" }
+      responses:
+        "204":
+          description: Sesión cerrada
+  /api/me:
+    get:
+      summary: Usuario del token
+      security: [{ bearer: [] }]
+      responses:
+        "200":
+          description: Usuario
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PublicUser" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /api/permisos:
+    get:
+      summary: Permisos del rol del token
+      security: [{ bearer: [] }]
+      responses:
+        "200":
+          description: Permisos
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /api/users:
+    get:
+      summary: Lista de usuarios (solo ADMIN)
+      security: [{ bearer: [] }]
+      responses:
+        "200":
+          description: Usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/PublicUser" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+  /api/users/{id}/role:
+    patch:
+      summary: Cambia el rol de un usuario (solo ADMIN)
+      security: [{ bearer: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [role]
+              properties:
+                role: { $ref: "#/components/schemas/Role" }
+      responses:
+        "200":
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PublicUser" }
+        "400": { $ref: "#/components/responses/Invalid" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "404":
+          description: Usuario no existe
