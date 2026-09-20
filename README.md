@@ -7,13 +7,50 @@ en la caja.
 Está construida a partir del prototipo de diseño **TuPastilla · Paciente autónomo** y
 de su especificación de implementación (proyecto de diseño `4825c2b6`).
 
-## Cómo correrla
+## Requisitos
+- JDK 21, Android SDK (compileSdk 37, minSdk 24), Android Studio o el emulador de la línea de comandos.
+- Node 24 o superior y pnpm 11.17.0 (viene fijado en packageManager).
+- Docker Desktop (MySQL 8.4, escaneos de seguridad y SonarQube).
 
-```bash
-./gradlew :app:installDebug      # instala en el emulador o el teléfono conectado
-./gradlew :app:testDebugUnitTest         # pruebas de lógica, en la JVM
-./gradlew :app:connectedDebugAndroidTest # pruebas de Room, en dispositivo
-```
+## Instalar dependencias
+- API: `cd tupastilla-api && pnpm install --frozen-lockfile`
+- App: no requiere instalar nada, Gradle descarga todo con `./gradlew`.
+
+## Variables de entorno
+- La API se configura con `tupastilla-api/.env`; se copia de `tupastilla-api/.env.example`. La API no arranca si falta algo o si JWT_SECRET tiene menos de 32 caracteres.
+- Variables: NODE_ENV, PORT (3000), DATABASE_URL (mysql://...), JWT_SECRET (obligatorio, mínimo 32 caracteres, generar con `openssl rand -base64 48`), JWT_ISSUER, JWT_AUDIENCE, ACCESS_TOKEN_TTL_SECONDS (900), REFRESH_TOKEN_TTL_DAYS (7), CORS_ORIGINS, TRUST_PROXY, ADMIN_EMAIL y ADMIN_PASSWORD (crean el administrador en la semilla).
+- Para producción con docker compose se usa `.env` en la raíz, copiado de `.env.example`: MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD, JWT_SECRET, CORS_ORIGINS, TRUST_PROXY, ADMIN_EMAIL, ADMIN_PASSWORD, API_IMAGE.
+- Ningún secreto se escribe en el código ni se sube al repositorio: los archivos .env están en .gitignore y en el pipeline los valores vienen de los secretos de GitHub.
+
+## Ejecutar en local
+- Todo de una vez: `bash Scripts/start.sh` (levanta MySQL en Docker, crea el .env con un JWT_SECRET aleatorio si no existe, migra, siembra y arranca la API en http://localhost:3000).
+- Solo la API con la pila completa en contenedores: `docker compose up -d`.
+- App en el emulador: `./gradlew :app:installDebug`. En debug la app apunta a http://10.0.2.2:3000 (la API del equipo anfitrión).
+
+## Ejecutar las pruebas
+- API: `cd tupastilla-api && pnpm test` (87 pruebas) y `pnpm test:coverage` (cobertura; el umbral de 80 % está en vitest.config.ts y romper el umbral falla el comando).
+- App: `./gradlew :app:testDebugUnitTest` (55 pruebas) y `./gradlew :app:verificarCoberturaAuth` (cobertura JaCoCo del paquete auth, mínimo 80 % de líneas y ramas).
+- Pruebas instrumentadas de Room en un emulador conectado: `./gradlew :app:connectedDebugAndroidTest`.
+
+## Análisis de calidad y seguridad
+- Lint y tipos de la API: `pnpm lint` y `pnpm typecheck`. Dependencias: `pnpm audit --prod --audit-level high`.
+- Lint de la app: `./gradlew :app:lintDebug`.
+- SonarQube local: `docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:community`, abrir http://localhost:9000, generar un token y exportarlo como SONAR_TOKEN. Analizar la API con `docker run --rm -e SONAR_HOST_URL=http://host.docker.internal:9000 -e SONAR_TOKEN -v "$PWD:/usr/src" sonarsource/sonar-scanner-cli` desde tupastilla-api, y la app con `SONAR_HOST_URL=http://localhost:9000 ./gradlew :app:verificarCoberturaAuth :app:lintDebug sonar`.
+- OWASP ZAP contra la API en Docker: `docker run --rm -v "$PWD/reportes/seguridad-zap:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://host.docker.internal:3000/health -r baseline.html`. Escaneo activo con el contrato: `zap-api-scan.py -t /zap/wrk/openapi.yaml -f openapi -O http://host.docker.internal:3000`.
+- MobSF sobre el APK: `docker run -d --name mobsf -p 127.0.0.1:8000:8000 opensecurity/mobile-security-framework-mobsf` y subir app/build/outputs/apk/release/app-release-unsigned.apk.
+- El pipeline .github/workflows/ci-cd.yml repite estos análisis en cada push y guarda los reportes como artefactos.
+- Los resultados ya ejecutados están en la carpeta reportes/ y explicados en docs/seguridad.md, docs/calidad.md y docs/rubrica.md.
+
+## Documentación
+
+- docs/rubrica.md: cómo cumple cada punto de la rúbrica  
+- docs/informe-cierre.md: planeado contra ejecutado y lecciones  
+- docs/plan-mejora.md: propuestas de mejoras futuras  
+- docs/seguridad.md: análisis de riesgos y medidas de protección  
+- docs/calidad.md: indicadores de calidad y resultados de análisis  
+- docs/funcionamiento-tecnico.md: descripción del flujo y arquitectura técnica
+
+## Cargar datos y probar los avisos
 
 Para llenar la app sin capturar nada: **Ajustes → Cargar datos de prueba**. Siembra
 según el rol: al paciente le deja tres medicinas propias; al cuidador, seis residentes
