@@ -1,0 +1,8 @@
+title = "TuPastilla"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Los identificadores de los hallazgos exportados de SonarQube son UUID con entropia alta y la regla generic-api-key los confunde con claves. Son datos del reporte, no secretos."
+paths = ['''^reportes/sonar/.*-hallazgos\.json$''']

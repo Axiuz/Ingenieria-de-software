@@ -73,7 +73,8 @@ principal del proyecto (`Proyecto-TuPastilla`), con las etiquetas `v*` y a mano.
 El job `deploy` declara `needs: [api, android, seguridad]`: no se ejecuta si alguna prueba falla.
 Esa es la evidencia de que las pruebas corren antes del despliegue.
 
-El job `seguridad` añade lo que pide el punto 3: gitleaks sobre todo el historial, CodeQL
+El job `seguridad` añade lo que pide el punto 3: gitleaks sobre todo el historial —con una
+excepción documentada en `.gitleaks.toml` para los identificadores de hallazgos de SonarQube—, CodeQL
 `security-extended`, Trivy sobre la imagen (rompe el pipeline con cualquier CRITICAL o HIGH con
 parche) y OWASP ZAP —baseline y escaneo con el contrato OpenAPI— contra la API levantada con
 `docker compose`.

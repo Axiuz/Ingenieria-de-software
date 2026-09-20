@@ -96,7 +96,7 @@ cd tupastilla-api && pnpm install && pnpm test:coverage && pnpm audit && pnpm li
 Los escaneos de seguridad se ejecutan en el job `seguridad` del workflow `.github/workflows/ci-cd.yml`, con estas herramientas:
 
 - CodeQL (`security-extended`): análisis estático del TypeScript.
-- gitleaks: secretos en todo el historial.
+- gitleaks: secretos en todo el historial, con `.gitleaks.toml` en la raiz.
 - Trivy: vulnerabilidades CRITICAL y HIGH de la imagen Docker; rompe el pipeline si hay alguna con parche.
 - ZAP baseline: escaneo pasivo de la API levantada con `docker compose`.
 - ZAP API scan: escaneo activo guiado por el contrato `tupastilla-api/openapi.yaml`.
@@ -170,7 +170,16 @@ Marcados como falso positivo con su justificación: la difusión de intents de `
 (`AlarmManager` es una llamada bloqueante del sistema). Aceptado con justificación: la clave del
 Keystore utilizable sin autenticación del usuario, porque la sesión se renueva en segundo plano.
 
-### 8.3 MobSF sobre el APK de release
+### 8.3 Falso positivo de gitleaks
+
+En el primer push con los reportes, gitleaks detuvo el pipeline con más de cien hallazgos
+`generic-api-key` en `reportes/sonar/*-hallazgos.json`. Son los identificadores de los hallazgos
+que exporta SonarQube: cadenas tipo UUID con entropía alta, no credenciales. Se revisó el
+contenido de `reportes/` en busca de tokens JWT, llaves privadas y contraseñas de prueba y no hay
+ninguno. Se añadió `.gitleaks.toml` con una excepción acotada a esos dos archivos; el resto del
+repositorio y del historial se sigue escaneando igual.
+
+### 8.4 MobSF sobre el APK de release
 
 Puntuación de seguridad 61/100 (`reportes/seguridad-movil/`). Hallazgos altos: la falta de
 certificado de firma —se analizó el APK sin firmar; el que publica el pipeline va firmado— y el
