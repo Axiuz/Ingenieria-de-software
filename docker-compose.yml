@@ -28,6 +28,9 @@ services:
 
   api:
     image: ${API_IMAGE:-ghcr.io/axiuz/tupastilla-api:latest}
+    # La imagen del pipeline se construye en un runner amd64; sin esto Docker no la
+    # encuentra en un Mac con Apple Silicon.
+    platform: linux/amd64
     build: ./tupastilla-api
     restart: unless-stopped
     env_file: .env
