@@ -1,5 +1,8 @@
 # Capturas de la entrega
 
+Ya está `despliegue-apk-en-emulador.png`: el APK del release `build-4`, instalado en el emulador
+y corriendo contra la imagen de GHCR levantada con `docker compose`.
+
 Faltan tres capturas que solo se pueden tomar desde una sesión abierta:
 
 | Archivo | Qué capturar | Dónde |
