@@ -23,8 +23,8 @@ Haz clic en cada imagen para abrir el video.
 
 | | |
 |---|---|
-| **1. La app** (50 s): pestañas Hoy, Medicinas, Historial y Ajustes con datos de prueba.<br>[![Demo de la app](demos/demo-01-app.png)](demos/demo-01-app.mp4) | **2. Autenticación y roles** (40 s): login contra la API y acceso por rol con token.<br>[![Demo de autenticación](demos/demo-02-auth.png)](demos/demo-02-auth.mp4) |
-| **3. CI/CD** (40 s): los cuatro jobs del pipeline en verde y el despliegue.<br>[![Demo del pipeline](demos/demo-03-cicd.png)](demos/demo-03-cicd-16x9.mp4) | **4. Seguridad** (45 s): reportes de ZAP antes y después de las correcciones.<br>[![Demo de seguridad](demos/demo-04-seguridad.png)](demos/demo-04-seguridad-16x9.mp4) |
+| **1. La app**: pestañas Hoy, Medicinas, Historial y Ajustes con datos de prueba.<br>[![Demo de la app](demos/demo-01-app.png)](demos/demo-01-app.mp4) | **2. Autenticación y roles**: login contra la API y acceso por rol con token.<br>[![Demo de autenticación](demos/demo-02-auth.png)](demos/demo-02-auth.mp4) |
+| **3. CI/CD**: los cuatro jobs del pipeline en verde y el despliegue.<br>[![Demo del pipeline](demos/demo-03-cicd.png)](demos/demo-03-cicd-16x9.mp4) | **4. Seguridad**: reportes de ZAP antes y después de las correcciones.<br>[![Demo de seguridad](demos/demo-04-seguridad.png)](demos/demo-04-seguridad-16x9.mp4) |
 
 ## Instalar desde cero con Android Studio
 
