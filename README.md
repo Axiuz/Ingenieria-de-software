@@ -7,6 +7,145 @@ en la caja.
 Está construida a partir del prototipo de diseño **TuPastilla · Paciente autónomo** y
 de su especificación de implementación (proyecto de diseño `4825c2b6`).
 
+## Guía rápida para revisar la entrega
+
+| Quiero... | Ir a |
+|---|---|
+| Ver la app funcionando sin instalar nada | [Demos en video](#demos-en-video) |
+| Instalar y correr la app en mi computadora | [Instalar desde cero con Android Studio](#instalar-desde-cero-con-android-studio) |
+| Ver el pipeline, el APK publicado y las evidencias | [Entrega final](#entrega-final) |
+| Saber qué hizo cada integrante | [Integrantes y reparto del trabajo](#integrantes-y-reparto-del-trabajo) |
+| Revisar la rúbrica punto por punto | [`docs/rubrica.md`](docs/rubrica.md) |
+
+## Demos en video
+
+Haz clic en cada imagen para abrir el video.
+
+| | |
+|---|---|
+| **1. La app** (50 s): pestañas Hoy, Medicinas, Historial y Ajustes con datos de prueba.<br>[![Demo de la app](demos/demo-01-app.png)](demos/demo-01-app.mp4) | **2. Autenticación y roles** (40 s): login contra la API y acceso por rol con token.<br>[![Demo de autenticación](demos/demo-02-auth.png)](demos/demo-02-auth.mp4) |
+| **3. CI/CD** (40 s): los cuatro jobs del pipeline en verde y el despliegue.<br>[![Demo del pipeline](demos/demo-03-cicd.png)](demos/demo-03-cicd-16x9.mp4) | **4. Seguridad** (45 s): reportes de ZAP antes y después de las correcciones.<br>[![Demo de seguridad](demos/demo-04-seguridad.png)](demos/demo-04-seguridad-16x9.mp4) |
+
+## Instalar desde cero con Android Studio
+
+Tiempo aproximado: 20 minutos la primera vez (la mayor parte es la descarga de Gradle y del SDK).
+
+### Qué hay que tener instalado
+
+- [Android Studio](https://developer.android.com/studio) (trae su propio JDK y el emulador).
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) abierto (levanta la base de datos y la API).
+- Git.
+
+### Pasos
+
+1. **Clonar el repositorio en la rama del proyecto.** En una terminal:
+   ```bash
+   git clone -b Proyecto-TuPastilla https://github.com/Axiuz/Ingenieria-de-software.git
+   cd Ingenieria-de-software
+   ```
+2. **Crear el archivo `.env` de la API.** Genera contraseñas aleatorias; no hay que editar nada:
+   ```bash
+   cat > .env <<EOF
+   MYSQL_PASSWORD=$(openssl rand -hex 16)
+   MYSQL_ROOT_PASSWORD=$(openssl rand -hex 16)
+   JWT_SECRET=$(openssl rand -base64 48)
+   CORS_ORIGINS=
+   TRUST_PROXY=false
+   API_IMAGE=ghcr.io/axiuz/tupastilla-api:latest
+   EOF
+   ```
+   En Windows se ejecuta desde Git Bash.
+3. **Levantar la API.** Con Docker Desktop abierto:
+   ```bash
+   docker compose up -d
+   ```
+   Descarga la imagen publicada por el pipeline, crea la base MySQL y aplica las migraciones. Para comprobar que responde, abrir http://localhost:3000/health: debe mostrar `{"status":"ok"}`.
+4. **Abrir el proyecto en Android Studio.** **File > Open** y elegir la carpeta `Ingenieria-de-software` (la que contiene `settings.gradle.kts`). Esperar a que termine el **Gradle Sync**: la primera vez tarda entre 3 y 10 minutos. Si pide instalar SDK 37 o build-tools, aceptar.
+5. **Crear un emulador** si no hay uno: **Tools > Device Manager > Create Device**, elegir un Pixel y una imagen de sistema reciente.
+6. **Correr la app.** Elegir el emulador en la barra superior, junto a la configuración `app`, y pulsar **Run** (triángulo verde). Se instala la versión debug, que apunta sola a la API del paso 3.
+7. **Usar la app.** Crear una cuenta desde la pantalla de registro. Para llenarla sin capturar nada: **Ajustes > Cargar datos de prueba**. Para ver el aviso de toma sin esperar a su hora: **Ajustes > Ver cómo se ve el aviso del sistema**.
+
+Para detenerlo todo al terminar: `docker compose down`.
+
+### Si algo falla
+
+| Síntoma | Causa y solución |
+|---|---|
+| `docker compose` dice `define MYSQL_PASSWORD en .env` | Falta el paso 2 o se ejecutó en otra carpeta. Repetirlo en la raíz del repositorio. |
+| La app abre pero no deja iniciar sesión | La API no está arriba. Revisar http://localhost:3000/health y `docker compose ps`. |
+| Se usa un teléfono real en vez del emulador | Ver [Con teléfono por USB](#con-teléfono-por-usb). |
+| Prefiero no compilar | Instalar el APK ya compilado del [release build-4](https://github.com/Axiuz/Ingenieria-de-software/releases/tag/build-4) arrastrándolo al emulador. Necesita la API del paso 3. |
+
+## Entrega final
+
+- Código: rama `Proyecto-TuPastilla` de https://github.com/Axiuz/Ingenieria-de-software
+- Pipeline en verde: [ejecución 35495568857](https://github.com/Axiuz/Ingenieria-de-software/actions/runs/35495568857)
+- APK publicado: [release build-4](https://github.com/Axiuz/Ingenieria-de-software/releases/tag/build-4)
+- Imagen de la API: `ghcr.io/axiuz/tupastilla-api:latest`
+- Evidencias (capturas de pipeline, SonarQube, despliegue y APK en el emulador): carpeta `evidencias/`
+- Cumplimiento de la rúbrica punto por punto: `docs/rubrica.md`
+- Reparto del trabajo por integrante: sección [Integrantes y reparto del trabajo](#integrantes-y-reparto-del-trabajo)
+
+## Integrantes y reparto del trabajo
+
+| Integrante | Parte |
+|---|---|
+| Luis Yael Camberos | 1. Base de la app Android |
+| Michel García González | 2. Lógica de la app |
+| Saúl Hernández Torres | 3. Backend y 4. Infraestructura y CI/CD |
+| Juan Marco García Navarro | 4. Infraestructura y CI/CD |
+| Dalia Alejandra Andrade Martínez | 5. Calidad y seguridad |
+| Daniela Lizeth Prudencio Real | 6. Documentación y evidencias |
+
+### 1. Base de la app Android (Yael)
+Pasa el repositorio de Maven a Gradle y deja lista la estructura de la app: dependencias, R8 en release, cobertura con JaCoCo y los layouts, textos y temas de todas las pantallas.
+- `2d0cff1` Elimina el proyecto Maven de la actividad de calidad anterior
+- `f57fadf` Agrega el proyecto Gradle de Android como base del nuevo sistema
+- `2c4afc0` Configura dependencias, R8 en release y cobertura con JaCoCo
+- `58f867c` Integra layouts, strings y temas para todas las pantallas
+
+### 2. Lógica de la app (Michel)
+Base de datos local con Room, navegación por pestañas, avisos de toma y la conexión con la API para iniciar sesión, con la sesión guardada cifrada.
+- `e2a96e9` Implementa la base de la app: Room, pestañas, avisos y personas
+- `ccbd2a4` Agrega login y registro contra la API con sesión cifrada y refresh
+- `9acb5f2` Agrega tests unitarios para la app y el módulo de autenticación
+
+### 3. Backend (Saúl)
+API en Express con Prisma y MySQL: registro, login, renovación de token, cierre de sesión y roles, con pruebas unitarias y de ataque.
+- `3fbd57c` Inicia el backend con Express, Prisma y MySQL
+- `ad9909d` Implementa registro, login, refresh, logout y roles en la API
+- `ef357d9` Agrega 82 tests unitarios y de ataque para la API
+- `033f286` Agrega middleware para evitar almacenamiento en caché de respuestas
+
+### 4. Infraestructura y CI/CD (Saúl y Juan Marco)
+Contenedores para producción y desarrollo, arranque local con un comando y el pipeline que prueba, analiza y despliega la API y el APK.
+- `f066098` Configura contenedores de producción, desarrollo y arranque local
+- `3dfea8a` Agrega pipeline de CI/CD con pruebas, auditoría y escaneo ZAP
+- `8180fe0` Corrige versiones de actions que rompían el pipeline
+- `7c1d4f9` Configura el despliegue en Proyecto-TuPastilla y activa escaneo de ZAP
+- `7c1910d` Fija la imagen de la API a linux/amd64 para Apple Silicon
+
+### 5. Calidad y seguridad (Dalia)
+Corrección de los hallazgos de SonarQube, bloqueo del tráfico sin cifrar y los informes de calidad, seguridad, cierre y plan de mejora.
+- `9ab669e` Corrige hallazgos de SonarQube y prohíbe el tráfico en claro
+- `31d97d2` Excluye los ids de hallazgos de Sonar del escaneo de gitleaks
+- `86ac002` Agrega informes, plan de mejora y guía técnica del proyecto
+- `9398390` Crea documentación de calidad, seguridad y seguimiento del proyecto
+
+### 6. Documentación y evidencias (Daniela)
+README, scripts de entrega, verificación del entorno desplegado y capturas que prueban el pipeline, SonarQube y el APK publicado.
+- `0bdfda6` Actualiza el README e ignora docs/demo y artefactos de build
+- `2f3e564` Agrega documentación completa y scripts de entrega automatizada
+- `cf5b910` Documenta la verificación del entorno de prueba desplegado
+- `71f5738` Agrega la captura del APK publicado corriendo en el emulador
+- `58d9325` Agrega las capturas del pipeline y del tablero de SonarQube
+- `1ef12f6` Agrega la captura del release con el APK publicado
+- `f10fca7` Explica en el README cómo compilar desde Android Studio
+
+---
+
+# Detalle técnico
+
 ## Requisitos
 - JDK 21, Android SDK (compileSdk 37, minSdk 24), Android Studio o el emulador de la línea de comandos.
 - Node 24 o superior y pnpm 11.17.0 (viene fijado en packageManager).
@@ -27,7 +166,7 @@ de su especificación de implementación (proyecto de diseño `4825c2b6`).
 - Solo la API con la pila completa en contenedores: `docker compose up -d`.
 - App en el emulador: `./gradlew :app:installDebug`. En debug la app apunta a http://10.0.2.2:3000 (la API del equipo anfitrión).
 
-## Compilar desde Android Studio
+## Compilar desde Android Studio (detalle)
 
 1. Abrir Android Studio, ir a **File > Open** y elegir la carpeta raíz del repositorio (la que contiene `settings.gradle.kts`).
 2. Esperar el **Gradle Sync**. La primera vez descarga Gradle 9.5 y el JDK 25: tarda entre 3 y 10 minutos. Si aparece un aviso para instalar SDK 37 o build-tools, aceptarlo.
@@ -67,7 +206,9 @@ Quien prefiera no abrir Android Studio puede hacer lo mismo desde la terminal co
 - docs/plan-mejora.md: propuestas de mejoras futuras  
 - docs/seguridad.md: análisis de riesgos y medidas de protección  
 - docs/calidad.md: indicadores de calidad y resultados de análisis  
-- docs/funcionamiento-tecnico.md: descripción del flujo y arquitectura técnica
+- docs/funcionamiento-tecnico.md: descripción del flujo y arquitectura técnica  
+- evidencias/: capturas del pipeline, SonarQube, despliegue y APK en el emulador (explicadas en evidencias/LEEME.md)  
+- reportes/: resultados de pruebas, cobertura, SonarQube, ZAP y MobSF
 
 ## Cargar datos y probar los avisos
 
@@ -148,8 +289,3 @@ La notificación es de canal `IMPORTANCE_HIGH` con `setFullScreenIntent` y dos a
 Está implementado el flujo del paciente **autónomo**. La pantalla de selección de rol
 ofrece los tres y el modelo de datos los guarda, pero las pantallas exclusivas de los
 roles supervisado y cuidador (A4a, C12b, C14) quedan para una segunda entrega.
-
-## Integrantes
-
-- Saúl Benjamín Hernández Torres
-- Yael Camberos Fernández
