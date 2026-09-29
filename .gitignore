@@ -13,3 +13,9 @@ docs/demo/
 # Secretos locales
 .env
 tupastilla-api/.env
+
+# Demos: solo se versionan los cuatro videos que enlaza el README y sus portadas
+demos/*.docx
+demos/~$*
+demos/demo-03-cicd.mp4
+demos/demo-04-seguridad.mp4
